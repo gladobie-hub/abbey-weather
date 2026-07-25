@@ -1,0 +1,453 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<meta name="description" content="Live weather almanac for Abbey St Bathans, Berwickshire — rainfall, temperature and wind, with a year-on-year comparison.">
+<title>Abbey St Bathans — Weather Almanac</title>
+<!--
+  Abbey St Bathans &mdash; Weather Almanac dashboard
+  Data is baked in (Artifacts run under a CSP that blocks live API calls).
+  The scheduled refresh routine replaces ONLY the JSON inside
+  #almanac-data below, then redeploys this same file to the same Artifact URL.
+  "days"/"weekly" = current year (from the almanac / live sources); "lastYear"
+  = the matching dates one year back, pulled from the SEPA + Open-Meteo archives.
+-->
+<script id="almanac-data" type="application/json">
+{
+  "location": "Abbey St Bathans, Berwickshire",
+  "updated": "2026-07-25",
+  "source": "SEPA on-farm gauge (station 36870) &middot; Open-Meteo",
+  "weekly": { "weekEnding": "2026-07-24", "totalRain": 0.4, "avgMin": 10.4, "avgMax": 20, "maxWind": 17, "days": 7 },
+  "days": [
+    { "date": "2026-07-11", "rain": 0,   "tmin": 14.6, "tmax": 17.1, "wind": 8 },
+    { "date": "2026-07-12", "rain": 0,   "tmin": 10.5, "tmax": 17.6, "wind": 9 },
+    { "date": "2026-07-13", "rain": 0,   "tmin": 9.6,  "tmax": 16.2, "wind": 10 },
+    { "date": "2026-07-14", "rain": 0,   "tmin": 9.7,  "tmax": 15.8, "wind": 10 },
+    { "date": "2026-07-15", "rain": 0,   "tmin": 10.2, "tmax": 18.3, "wind": 7 },
+    { "date": "2026-07-16", "rain": 0,   "tmin": 9.1,  "tmax": 18.5, "wind": 7 },
+    { "date": "2026-07-17", "rain": 0,   "tmin": 11.5, "tmax": 15.3, "wind": 13 },
+    { "date": "2026-07-18", "rain": 0,   "tmin": 7.2,  "tmax": 16.6, "wind": 9 },
+    { "date": "2026-07-19", "rain": 0,   "tmin": 8.8,  "tmax": 19.1, "wind": 11 },
+    { "date": "2026-07-20", "rain": 0,   "tmin": 10.4, "tmax": 20.3, "wind": 9 },
+    { "date": "2026-07-21", "rain": 0,   "tmin": 11.5, "tmax": 20.9, "wind": 9 },
+    { "date": "2026-07-22", "rain": 0,   "tmin": 12.1, "tmax": 21.7, "wind": 10 },
+    { "date": "2026-07-23", "rain": 0,   "tmin": 11.6, "tmax": 22,   "wind": 14 },
+    { "date": "2026-07-24", "rain": 0.4, "tmin": 11.1, "tmax": 19.1, "wind": 17 }
+  ],
+  "lastYear": {
+    "label": "2025",
+    "weekly": { "weekEnding": "2025-07-24", "totalRain": 31.4, "avgMin": 13.9, "avgMax": 19.5, "maxWind": 13, "days": 7 },
+    "days": [
+      { "date": "2025-07-11", "rain": 0,    "tmin": 14.1, "tmax": 25,   "wind": 11 },
+      { "date": "2025-07-12", "rain": 0,    "tmin": 14.4, "tmax": 25.5, "wind": 10 },
+      { "date": "2025-07-13", "rain": 1.8,  "tmin": 12.5, "tmax": 21.6, "wind": 10 },
+      { "date": "2025-07-14", "rain": 6.6,  "tmin": 13,   "tmax": 18.1, "wind": 18 },
+      { "date": "2025-07-15", "rain": 9.2,  "tmin": 9.2,  "tmax": 15.2, "wind": 14 },
+      { "date": "2025-07-16", "rain": 0,    "tmin": 12,   "tmax": 17.7, "wind": 11 },
+      { "date": "2025-07-17", "rain": 0,    "tmin": 12.1, "tmax": 22.5, "wind": 11 },
+      { "date": "2025-07-18", "rain": 6.4,  "tmin": 14.6, "tmax": 21,   "wind": 12 },
+      { "date": "2025-07-19", "rain": 19.8, "tmin": 13.2, "tmax": 17.8, "wind": 13 },
+      { "date": "2025-07-20", "rain": 0.2,  "tmin": 14.8, "tmax": 20.9, "wind": 13 },
+      { "date": "2025-07-21", "rain": 2,    "tmin": 14.6, "tmax": 20.1, "wind": 7 },
+      { "date": "2025-07-22", "rain": 2.8,  "tmin": 13.8, "tmax": 19.7, "wind": 13 },
+      { "date": "2025-07-23", "rain": 0.2,  "tmin": 13.2, "tmax": 18.3, "wind": 10 },
+      { "date": "2025-07-24", "rain": 0,    "tmin": 13.3, "tmax": 18.7, "wind": 5 }
+    ]
+  }
+}
+</script>
+
+<style>
+  :root {
+    --ground: #eaeeec;
+    --panel: #f7faf8;
+    --panel-2: #eff3f1;
+    --ink: #17201d;
+    --muted: #5f6f6a;
+    --faint: #8b9994;
+    --hair: #d3dbd7;
+    --accent: #1a6675;      /* rain / water */
+    --accent-soft: #d3e5e8;
+    --warm: #c06a2c;        /* temperature */
+    --warm-soft: #ead6c2;
+    --shadow: 0 1px 2px rgba(23, 32, 29, 0.05), 0 8px 24px -12px rgba(23, 32, 29, 0.12);
+    --serif: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, "Times New Roman", serif;
+    --sans: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    --mono: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --ground: #0e1513;
+      --panel: #17211e;
+      --panel-2: #1d2825;
+      --ink: #e7eeeb;
+      --muted: #94a7a1;
+      --faint: #6b7c77;
+      --hair: #26332e;
+      --accent: #4fb4c4;
+      --accent-soft: #163038;
+      --warm: #e0975a;
+      --warm-soft: #3a2c1e;
+      --shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 10px 30px -14px rgba(0, 0, 0, 0.6);
+    }
+  }
+  :root[data-theme="light"] {
+    --ground: #eaeeec; --panel: #f7faf8; --panel-2: #eff3f1; --ink: #17201d;
+    --muted: #5f6f6a; --faint: #8b9994; --hair: #d3dbd7; --accent: #1a6675;
+    --accent-soft: #d3e5e8; --warm: #c06a2c; --warm-soft: #ead6c2;
+    --shadow: 0 1px 2px rgba(23, 32, 29, 0.05), 0 8px 24px -12px rgba(23, 32, 29, 0.12);
+  }
+  :root[data-theme="dark"] {
+    --ground: #0e1513; --panel: #17211e; --panel-2: #1d2825; --ink: #e7eeeb;
+    --muted: #94a7a1; --faint: #6b7c77; --hair: #26332e; --accent: #4fb4c4;
+    --accent-soft: #163038; --warm: #e0975a; --warm-soft: #3a2c1e;
+    --shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 10px 30px -14px rgba(0, 0, 0, 0.6);
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--ground);
+    color: var(--ink);
+    font-family: var(--sans);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap {
+    max-width: 940px;
+    margin: 0 auto;
+    padding: clamp(1.5rem, 4vw, 3rem) clamp(1rem, 4vw, 2rem) 4rem;
+  }
+
+  /* ── Masthead ── */
+  .mast { border-bottom: 1.5px solid var(--ink); padding-bottom: 1rem; margin-bottom: 1.75rem; }
+  .mast .eyebrow {
+    font-size: 0.7rem; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--accent); font-weight: 600; margin: 0 0 0.4rem;
+  }
+  .mast h1 {
+    font-family: var(--serif); font-weight: 600; letter-spacing: -0.01em;
+    font-size: clamp(1.9rem, 5vw, 2.7rem); line-height: 1.05; margin: 0;
+    text-wrap: balance;
+  }
+  .mast .sub {
+    display: flex; flex-wrap: wrap; gap: 0.4rem 1.2rem; margin-top: 0.7rem;
+    font-size: 0.82rem; color: var(--muted);
+  }
+  .mast .sub b { color: var(--ink); font-weight: 600; }
+
+  /* ── Weekly headline card ── */
+  .week {
+    background: var(--panel); border: 1px solid var(--hair); border-radius: 14px;
+    box-shadow: var(--shadow); padding: 1.25rem 1.4rem; margin-bottom: 1.5rem;
+    display: grid; grid-template-columns: 1fr; gap: 1rem;
+  }
+  .week-head { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+  .week-head h2 {
+    font-family: var(--serif); font-size: 1.15rem; font-weight: 600; margin: 0;
+  }
+  .week-head .tag {
+    font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--muted); border: 1px solid var(--hair); border-radius: 999px;
+    padding: 0.2rem 0.6rem;
+  }
+  .week-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.75rem; }
+  .wstat { border-left: 2px solid var(--hair); padding-left: 0.8rem; }
+  .wstat.rain { border-color: var(--accent); }
+  .wstat.temp { border-color: var(--warm); }
+  .wstat .k { font-size: 0.72rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
+  .wstat .v {
+    font-family: var(--serif); font-size: clamp(1.4rem, 4vw, 1.9rem); font-weight: 600;
+    font-variant-numeric: tabular-nums; line-height: 1.1; margin-top: 0.15rem;
+  }
+  .wstat .v small { font-size: 0.6em; font-weight: 500; color: var(--muted); font-family: var(--sans); }
+
+  /* ── Same-week-last-year comparison strip ── */
+  .week-compare {
+    display: flex; flex-wrap: wrap; align-items: center; gap: 0.45rem 1.4rem;
+    border-top: 1px dashed var(--hair); padding-top: 0.85rem;
+  }
+  .week-compare .cmp-label {
+    font-size: 0.66rem; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--faint); font-weight: 700;
+  }
+  .cmp { display: inline-flex; align-items: baseline; gap: 0.4rem; font-size: 0.82rem; color: var(--muted); }
+  .cmp b { color: var(--ink); font-weight: 600; font-variant-numeric: tabular-nums; }
+  .cmp .delta {
+    font-size: 0.72rem; font-weight: 600; font-variant-numeric: tabular-nums;
+    color: var(--faint); display: inline-flex; align-items: center; gap: 0.1rem;
+  }
+
+  /* ── Latest-day tiles ── */
+  .section-label {
+    font-size: 0.72rem; letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--faint); font-weight: 600; margin: 0 0 0.7rem;
+  }
+  .tiles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.75rem; margin-bottom: 1.75rem; }
+  .tile {
+    background: var(--panel); border: 1px solid var(--hair); border-radius: 12px;
+    padding: 0.9rem 1rem; display: flex; flex-direction: column; gap: 0.15rem;
+  }
+  .tile .k { font-size: 0.72rem; letter-spacing: 0.05em; text-transform: uppercase; color: var(--muted); display: flex; align-items: center; gap: 0.4rem; }
+  .tile .dot { width: 8px; height: 8px; border-radius: 50%; flex: none; }
+  .tile .v { font-size: 1.55rem; font-weight: 650; font-variant-numeric: tabular-nums; letter-spacing: -0.01em; }
+  .tile .v small { font-size: 0.55em; font-weight: 500; color: var(--muted); }
+
+  /* ── Chart ── */
+  .chart-card {
+    background: var(--panel); border: 1px solid var(--hair); border-radius: 14px;
+    box-shadow: var(--shadow); padding: 1.2rem 1.3rem 1rem; margin-bottom: 1.75rem;
+  }
+  .chart-head { display: flex; align-items: baseline; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem 1rem; margin-bottom: 0.4rem; }
+  .chart-head h3 { font-family: var(--serif); font-size: 1.05rem; font-weight: 600; margin: 0; }
+  .legend { display: flex; gap: 1rem; font-size: 0.75rem; color: var(--muted); }
+  .legend span { display: inline-flex; align-items: center; gap: 0.35rem; }
+  .legend i { width: 12px; height: 3px; border-radius: 2px; display: inline-block; }
+  .chart-scroll { overflow-x: auto; }
+  svg { display: block; width: 100%; height: auto; min-width: 520px; }
+  .g-grid { stroke: var(--hair); stroke-width: 1; }
+  .g-axis { fill: var(--faint); font-size: 10px; font-family: var(--sans); }
+  .g-cap { fill: var(--muted); font-size: 10px; font-family: var(--sans); letter-spacing: 0.06em; text-transform: uppercase; }
+  .g-temp-cur { stroke: var(--warm); stroke-width: 5; stroke-linecap: round; }
+  .g-temp-prev { stroke: var(--warm); stroke-width: 5; stroke-linecap: round; opacity: 0.3; }
+  .g-rain-cur { fill: var(--accent); }
+  .g-rain-prev { fill: var(--accent); opacity: 0.32; }
+  .g-daylabel { fill: var(--muted); font-size: 9px; font-family: var(--mono); }
+  .legend i.yr-prev { opacity: 0.34; }
+
+  /* ── Ledger ── */
+  .ledger-card {
+    background: var(--panel); border: 1px solid var(--hair); border-radius: 14px;
+    box-shadow: var(--shadow); overflow: hidden;
+  }
+  .table-scroll { overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; font-size: 0.88rem; min-width: 460px; }
+  thead th {
+    text-align: right; font-size: 0.68rem; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--muted); font-weight: 600; padding: 0.85rem 1rem; border-bottom: 1px solid var(--hair);
+    background: var(--panel-2);
+  }
+  thead th:first-child { text-align: left; }
+  tbody td { padding: 0.62rem 1rem; border-bottom: 1px solid var(--hair); text-align: right; font-variant-numeric: tabular-nums; }
+  tbody tr:last-child td { border-bottom: none; }
+  tbody tr:hover td { background: var(--panel-2); }
+  td.date { text-align: left; font-family: var(--mono); font-size: 0.8rem; color: var(--muted); white-space: nowrap; }
+  td.date b { color: var(--ink); font-weight: 600; }
+  .rainbar-cell { width: 34%; }
+  .rainbar { position: relative; height: 8px; background: var(--panel-2); border-radius: 999px; overflow: hidden; }
+  .rainbar > i { position: absolute; inset: 0 auto 0 0; background: var(--accent); border-radius: 999px; }
+  .rain-mm { color: var(--accent); font-weight: 600; }
+  .rain-mm.dry { color: var(--faint); font-weight: 500; }
+  .temp-range { color: var(--ink); }
+  .temp-range small { color: var(--muted); }
+  .wind-v { color: var(--muted); }
+
+  /* ── Phone layout ── */
+  @media (max-width: 560px) {
+    .tiles { grid-template-columns: 1fr; }
+    .tile { flex-direction: row; align-items: baseline; justify-content: space-between; }
+  }
+  @media (max-width: 460px) {
+    .week-stats { grid-template-columns: 1fr; gap: 0.5rem; }
+    .wstat { border-left: none; border-top: 2px solid var(--hair); padding-left: 0; padding-top: 0.5rem; }
+    .wstat.rain { border-color: var(--accent); }
+    .wstat.temp { border-color: var(--warm); }
+    .week-compare { gap: 0.35rem 1rem; }
+  }
+
+  footer { margin-top: 1.5rem; font-size: 0.75rem; color: var(--faint); line-height: 1.6; }
+  footer b { color: var(--muted); font-weight: 600; }
+</style>
+
+<div class="wrap">
+  <header class="mast">
+    <p class="eyebrow">Farm Almanac</p>
+    <h1>Weather at Abbey St&nbsp;Bathans</h1>
+    <div class="sub" id="mast-sub"></div>
+  </header>
+
+  <section class="week" aria-label="Latest weekly summary">
+    <div class="week-head">
+      <h2 id="week-title">Week in review</h2>
+      <span class="tag">7-day rollup</span>
+    </div>
+    <div class="week-stats" id="week-stats"></div>
+    <div class="week-compare" id="week-compare"></div>
+  </section>
+
+  <p class="section-label">Most recent day</p>
+  <div class="tiles" id="tiles"></div>
+
+  <div class="chart-card">
+    <div class="chart-head">
+      <h3>Last 14 days &middot; this year vs last</h3>
+      <div class="legend">
+        <span><i style="background:var(--ink)"></i>2026</span>
+        <span><i class="yr-prev" style="background:var(--ink)"></i>2025</span>
+      </div>
+    </div>
+    <div class="chart-scroll"><div id="chart"></div></div>
+  </div>
+
+  <p class="section-label">Daily ledger</p>
+  <div class="ledger-card">
+    <div class="table-scroll">
+      <table>
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th class="rainbar-cell">Rainfall</th>
+            <th>Rain</th>
+            <th>Temp &deg;C</th>
+            <th>Wind</th>
+          </tr>
+        </thead>
+        <tbody id="ledger"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <footer id="footer"></footer>
+</div>
+
+<script>
+  const DATA = JSON.parse(document.getElementById("almanac-data").textContent);
+  const { days, weekly, lastYear } = DATA;
+
+  const DOW = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  const MON = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+  function parseISO(s) { const [y, m, d] = s.split("-").map(Number); return new Date(Date.UTC(y, m - 1, d)); }
+  function fmtDay(s) { const d = parseISO(s); return { dow: DOW[d.getUTCDay()], dm: `${d.getUTCDate()} ${MON[d.getUTCMonth()]}` }; }
+  function fmtLong(s) { const d = parseISO(s); return `${DOW[d.getUTCDay()]} ${d.getUTCDate()} ${MON[d.getUTCMonth()]} ${d.getUTCFullYear()}`; }
+
+  // Masthead
+  document.getElementById("mast-sub").innerHTML =
+    `<span><b>${DATA.location}</b></span>` +
+    `<span>Rain day ending 09:00, updated <b>${fmtLong(DATA.updated)}</b></span>` +
+    `<span>${DATA.source}</span>`;
+
+  // Weekly card
+  document.getElementById("week-title").textContent = `Week ending ${fmtLong(weekly.weekEnding)}`;
+  document.getElementById("week-stats").innerHTML = `
+    <div class="wstat rain"><div class="k">Total rain</div><div class="v">${weekly.totalRain}<small> mm</small></div></div>
+    <div class="wstat temp"><div class="k">Avg range</div><div class="v">${weekly.avgMin}&ndash;${weekly.avgMax}<small> &deg;C</small></div></div>
+    <div class="wstat"><div class="k">Max wind</div><div class="v">${weekly.maxWind}<small> mph</small></div></div>`;
+
+  // Same-week-last-year comparison
+  if (lastYear && lastYear.weekly) {
+    const ly = lastYear.weekly;
+    const arrow = (cur, prev, unit, dp = 1) => {
+      const diff = cur - prev;
+      if (Math.abs(diff) < (dp === 0 ? 0.5 : 0.05)) return `<span class="delta">&middot; no change</span>`;
+      const glyph = diff > 0 ? "&#9650;" : "&#9660;";
+      return `<span class="delta">${glyph} ${Math.abs(diff).toFixed(dp)} ${unit}</span>`;
+    };
+    document.getElementById("week-compare").innerHTML =
+      `<span class="cmp-label">Same week ${lastYear.label}</span>` +
+      `<span class="cmp">Rain <b>${ly.totalRain} mm</b> ${arrow(weekly.totalRain, ly.totalRain, "mm")}</span>` +
+      `<span class="cmp">Range <b>${ly.avgMin}&ndash;${ly.avgMax}&deg;C</b></span>` +
+      `<span class="cmp">Max wind <b>${ly.maxWind} mph</b> ${arrow(weekly.maxWind, ly.maxWind, "mph", 0)}</span>`;
+  }
+
+  // Latest-day tiles
+  const latest = days[days.length - 1];
+  document.getElementById("tiles").innerHTML = `
+    <div class="tile"><div class="k"><span class="dot" style="background:var(--accent)"></span>Rainfall</div><div class="v">${latest.rain}<small> mm</small></div></div>
+    <div class="tile"><div class="k"><span class="dot" style="background:var(--warm)"></span>Temperature</div><div class="v">${latest.tmin}&ndash;${latest.tmax}<small> &deg;C</small></div></div>
+    <div class="tile"><div class="k"><span class="dot" style="background:var(--muted)"></span>Wind max</div><div class="v">${latest.wind}<small> mph</small></div></div>`;
+
+  // ── Chart: two panels (temp range, rainfall), 2026 vs 2025 overlaid ──
+  (function drawChart() {
+    const prev = (lastYear && lastYear.days) || [];
+    const W = 720, padL = 40, padR = 14;
+    const iw = W - padL - padR;
+    const OFF = 4.5, BW = 5; // paired-series x-offset and bar width
+    const n = days.length;
+    const x = i => padL + (n === 1 ? iw / 2 : (i / (n - 1)) * iw);
+
+    // Temperature panel bounds (include both years)
+    const allT = [...days, ...prev];
+    let lo = Math.floor(Math.min(...allT.map(d => d.tmin)) - 2);
+    let hi = Math.ceil(Math.max(...allT.map(d => d.tmax)) + 2);
+    const tTop = 28, tH = 128, tBot = tTop + tH;
+    const yT = v => tBot - ((v - lo) / (hi - lo)) * tH;
+
+    // Rainfall panel bounds
+    const maxRain = Math.max(5, ...days.map(d => d.rain), ...prev.map(d => d.rain));
+    const rTop = 190, rH = 62, rBot = rTop + rH;
+    const yR = mm => rBot - (mm / maxRain) * rH;
+    const H = 282;
+
+    let g = "";
+
+    // Panel captions
+    g += `<text class="g-cap" x="${padL}" y="16">Temperature range &deg;C</text>`;
+    g += `<text class="g-cap" x="${padL}" y="178">Rainfall mm</text>`;
+
+    // Temp gridlines + axis
+    const step = (hi - lo) <= 14 ? 4 : 5;
+    for (let v = Math.ceil(lo / step) * step; v <= hi; v += step) {
+      g += `<line class="g-grid" x1="${padL}" y1="${yT(v).toFixed(1)}" x2="${W - padR}" y2="${yT(v).toFixed(1)}"/>`;
+      g += `<text class="g-axis" x="${padL - 6}" y="${(yT(v) + 3).toFixed(1)}" text-anchor="end">${v}&deg;</text>`;
+    }
+    // Temp capsules — prev (left, faded) then cur (right)
+    days.forEach((d, i) => {
+      const p = prev[i];
+      if (p) g += `<line class="g-temp-prev" x1="${(x(i) - OFF).toFixed(1)}" y1="${yT(p.tmax).toFixed(1)}" x2="${(x(i) - OFF).toFixed(1)}" y2="${yT(p.tmin).toFixed(1)}"/>`;
+      g += `<line class="g-temp-cur" x1="${(x(i) + OFF).toFixed(1)}" y1="${yT(d.tmax).toFixed(1)}" x2="${(x(i) + OFF).toFixed(1)}" y2="${yT(d.tmin).toFixed(1)}"/>`;
+    });
+
+    // Rain baseline + max tick
+    g += `<line class="g-grid" x1="${padL}" y1="${rBot}" x2="${W - padR}" y2="${rBot}"/>`;
+    g += `<text class="g-axis" x="${padL - 6}" y="${rTop + 4}" text-anchor="end">${maxRain}</text>`;
+    g += `<text class="g-axis" x="${padL - 6}" y="${rBot + 3}" text-anchor="end">0</text>`;
+    // Rain bars — prev (left, faded) then cur (right)
+    days.forEach((d, i) => {
+      const p = prev[i];
+      if (p && p.rain > 0) {
+        const y = yR(p.rain);
+        g += `<rect class="g-rain-prev" x="${(x(i) - OFF - BW / 2).toFixed(1)}" y="${y.toFixed(1)}" width="${BW}" height="${(rBot - y).toFixed(1)}" rx="1.5"/>`;
+      }
+      if (d.rain > 0) {
+        const y = yR(d.rain);
+        g += `<rect class="g-rain-cur" x="${(x(i) + OFF - BW / 2).toFixed(1)}" y="${y.toFixed(1)}" width="${BW}" height="${(rBot - y).toFixed(1)}" rx="1.5"/>`;
+      }
+    });
+
+    // Day labels (every other + last)
+    days.forEach((d, i) => {
+      if (i % 2 === 0 || i === n - 1) {
+        g += `<text class="g-daylabel" x="${x(i).toFixed(1)}" y="${H - 6}" text-anchor="middle">${fmtDay(d.date).dm}</text>`;
+      }
+    });
+
+    document.getElementById("chart").innerHTML =
+      `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Temperature range and rainfall over the last 14 days, 2026 compared with 2025">${g}</svg>`;
+  })();
+
+  // ── Ledger ──
+  const maxRainLedger = Math.max(1, ...days.map(d => d.rain));
+  document.getElementById("ledger").innerHTML = days.slice().reverse().map(d => {
+    const f = fmtDay(d.date);
+    const pct = Math.max(d.rain > 0 ? 6 : 0, (d.rain / maxRainLedger) * 100);
+    return `<tr>
+      <td class="date"><b>${f.dow}</b> ${f.dm}</td>
+      <td class="rainbar-cell"><div class="rainbar"><i style="width:${pct.toFixed(0)}%"></i></div></td>
+      <td class="${d.rain > 0 ? "rain-mm" : "rain-mm dry"}">${d.rain > 0 ? d.rain + " mm" : "&mdash;"}</td>
+      <td class="temp-range">${d.tmin}<small> / </small>${d.tmax}</td>
+      <td class="wind-v">${d.wind} mph</td>
+    </tr>`;
+  }).join("");
+
+  // ── Footer ──
+  document.getElementById("footer").innerHTML =
+    `Rainfall from the <b>SEPA on-farm gauge</b> at Abbey St Bathans (station 36870), reported on the UK hydrological rain-day (09:00&rarr;09:00). ` +
+    `Temperature and wind from <b>Open-Meteo</b>, observed-blend for completed days. ` +
+    `Last year (${lastYear ? lastYear.label : "prior"}) from the <b>SEPA</b> and <b>Open-Meteo archives</b> for the matching dates. ` +
+    `Logged automatically to the Farm Almanac &mdash; no manual entry.`;
+</script>
+
+</body>
+</html>
