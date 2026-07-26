@@ -1,0 +1,71 @@
+{
+  "station": {
+    "id": 36870,
+    "name": "Abbey St Bathans",
+    "river": "Whiteadder Water",
+    "lat": 55.853,
+    "lon": -2.387
+  },
+  "fetchedAt": "2026-07-26T17:00:55.127Z",
+  "lastReadingAt": "2026-07-26T16:45:00.000Z",
+  "stalenessMinutes": 16,
+  "rainfall": {
+    "units": "mm",
+    "sinceMidnightLocal": {
+      "mm": 5.8,
+      "dayDefinition": "midnight Europe/London (BST in summer)",
+      "from": "2026-07-25T23:00:00.000Z"
+    },
+    "sinceHydroDay0900": {
+      "mm": 2.6,
+      "dayDefinition": "09:00 UTC hydrological day — 10:00 local under BST",
+      "from": "2026-07-26T09:00:00.000Z"
+    },
+    "last24h": {
+      "mm": 5.8
+    },
+    "last36h": {
+      "mm": 5.6,
+      "source": "SEPA Hour.36HourTotal"
+    },
+    "last7d": {
+      "mm": 6.2
+    },
+    "monthToDate": {
+      "mm": 14.6,
+      "longTermMean": 94.6,
+      "percentOfNormal": 15,
+      "note": "month-to-date summed from 15-minute values; SEPA's Month.Total series is empty at this station"
+    }
+  },
+  "riverLevel": {
+    "units": "m",
+    "m": 0.29,
+    "at": "2026-07-26T16:45:00.000Z",
+    "trend": "steady",
+    "lastClosedDay": {
+      "date": "2026-07-25",
+      "min": 0.275,
+      "mean": 0.281,
+      "max": 0.285
+    }
+  },
+  "quality": {
+    "allGood": true,
+    "gaps": 0,
+    "flagged": [],
+    "note": "SEPA codes: 50 good, 100 estimated, 140 provisional, 150 suspect, 200 unknown, 254 unclassified (routine live telemetry), -1 missing"
+  },
+  "hydroDayCheck": {
+    "checked": true,
+    "agrees": true,
+    "window": "09:00Z to 09:00Z, fixed year-round",
+    "daysChecked": 9,
+    "daysAgreed": 9,
+    "discriminatingDays": 0,
+    "localTimeHypothesisMatches": 0,
+    "disagreements": [],
+    "note": "discriminatingDays counts days where a 09:00-local boundary would give a different total. Only those days actually test the assumption; localTimeHypothesisMatches should stay 0"
+  },
+  "source": "SEPA KiWIS timeseries (demonstrator service, not supported for business use)"
+}

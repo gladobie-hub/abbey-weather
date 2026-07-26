@@ -1,0 +1,97 @@
+name: Refresh hydrology data
+
+# Keeps data/*.json current from SEPA's KiWIS service, so rainfall and river
+# questions are answered by fetching one static file rather than querying an API.
+#
+# Two schedules:
+#   hourly     — latest.json + recent-15min.json (current conditions)
+#   09:45 UTC  — adds daily.json + monthly.json, after the 09:00 UTC
+#                hydrological day closes and SEPA posts the day's total
+#
+# Hourly is deliberate rather than every-30-minutes: SEPA reports at 15-minute
+# intervals, GitHub's scheduled runs drift 5-30 minutes, and the raw CDN caches
+# for ~5 minutes, so readings are 25-50 minutes old regardless. Halving the cron
+# would double the commit count to buy accuracy the pipeline cannot deliver.
+#
+# Scheduled runs are best-effort — GitHub gives no timing guarantee. The job is
+# idempotent and commits only on change, so a missed run costs nothing.
+
+on:
+  schedule:
+    - cron: "0 * * * *" # hourly, current conditions
+    - cron: "45 9 * * *" # daily rollup, just after the 09:00Z hydrological day closes
+  workflow_dispatch:
+    inputs:
+      full:
+        description: "Rebuild daily.json and monthly.json from 2005"
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+# Shared with the dashboard job: both push to main, and serialising them avoids
+# racing on the same branch.
+concurrency:
+  group: refresh-weather
+  cancel-in-progress: false
+
+jobs:
+  hydro:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      # The rollup cron and the manual "full" tick also rebuild the history.
+      - name: Decide scope
+        id: scope
+        run: |
+          if [ "${{ github.event.schedule }}" = "45 9 * * *" ] || [ "${{ inputs.full }}" = "true" ]; then
+            echo "args=--daily" >> "$GITHUB_OUTPUT"
+          else
+            echo "args=" >> "$GITHUB_OUTPUT"
+          fi
+
+      # Exits non-zero on a parse failure, a stale feed, or a hydrological-day
+      # mismatch, so GitHub emails rather than publishing a wrong-but-plausible file.
+      - name: Fetch SEPA hydrology
+        run: node scripts/fetch-hydro.mjs ${{ steps.scope.outputs.args }}
+
+      - name: Commit if the data changed
+        run: |
+          git config user.name "hydro-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add data/
+          if git diff --staged --quiet; then
+            echo "No change — hydrology data already current."
+            exit 0
+          fi
+          git commit -m "Refresh hydrology data ($(date -u +'%Y-%m-%d %H:%M')Z)"
+          # The dashboard job pushes to the same branch; rebase and retry rather
+          # than fail on a race.
+          for attempt in 1 2 3; do
+            if git push; then
+              echo "Pushed on attempt $attempt."
+              exit 0
+            fi
+            echo "Push rejected, rebasing (attempt $attempt)..."
+            git pull --rebase --autostash origin main || true
+            sleep 5
+          done
+          echo "Could not push after 3 attempts." >&2
+          exit 1
+
+      # The inline check in every run usually has no power — it only sees ~10 days
+      # and most days can't distinguish a 09:00Z boundary from a 09:00-local one.
+      # Once a day, audit a full year, where discriminating days are guaranteed.
+      # Runs after the commit so a boundary change reddens the job and emails
+      # without also costing that run's data update.
+      - name: Audit the hydrological-day boundary
+        if: steps.scope.outputs.args == '--daily'
+        run: node scripts/fetch-hydro.mjs --verify-history 365

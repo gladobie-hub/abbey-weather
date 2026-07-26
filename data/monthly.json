@@ -1,0 +1,1910 @@
+{
+  "station": {
+    "id": 36870,
+    "name": "Abbey St Bathans"
+  },
+  "fetchedAt": "2026-07-26T17:00:55.127Z",
+  "units": "mm",
+  "note": "computed from the daily record; SEPA's Month.Total and LongTermValue Min/Max series are empty at this station. 'complete' months only are used for the long-term figures",
+  "months": [
+    {
+      "month": "2005-01",
+      "mm": 65,
+      "daysWithData": 31,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2005-02",
+      "mm": 69.4,
+      "daysWithData": 28,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2005-03",
+      "mm": 92.8,
+      "daysWithData": 31,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2005-04",
+      "mm": 134,
+      "daysWithData": 30,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2005-05",
+      "mm": 70.2,
+      "daysWithData": 31,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2005-06",
+      "mm": 71.4,
+      "daysWithData": 30,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2005-07",
+      "mm": 85.8,
+      "daysWithData": 31,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2005-08",
+      "mm": 36.8,
+      "daysWithData": 31,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2005-09",
+      "mm": 47.4,
+      "daysWithData": 30,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2005-10",
+      "mm": 157.4,
+      "daysWithData": 31,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2005-11",
+      "mm": 89.8,
+      "daysWithData": 30,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2005-12",
+      "mm": 68.2,
+      "daysWithData": 31,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2006-01",
+      "mm": 29.8,
+      "daysWithData": 31,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2006-02",
+      "mm": 47.2,
+      "daysWithData": 28,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2006-03",
+      "mm": 115,
+      "daysWithData": 31,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2006-04",
+      "mm": 18.6,
+      "daysWithData": 30,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2006-05",
+      "mm": 93,
+      "daysWithData": 31,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2006-06",
+      "mm": 16.2,
+      "daysWithData": 30,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2006-07",
+      "mm": 33,
+      "daysWithData": 31,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2006-08",
+      "mm": 95.8,
+      "daysWithData": 31,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2006-09",
+      "mm": 81.8,
+      "daysWithData": 30,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2006-10",
+      "mm": 116.6,
+      "daysWithData": 31,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2006-11",
+      "mm": 53.6,
+      "daysWithData": 30,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2006-12",
+      "mm": 64.8,
+      "daysWithData": 31,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2007-01",
+      "mm": 86.8,
+      "daysWithData": 31,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2007-02",
+      "mm": 108.8,
+      "daysWithData": 28,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2007-03",
+      "mm": 51.8,
+      "daysWithData": 31,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2007-04",
+      "mm": 9.4,
+      "daysWithData": 30,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2007-05",
+      "mm": 79.6,
+      "daysWithData": 31,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2007-06",
+      "mm": 131.8,
+      "daysWithData": 30,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2007-07",
+      "mm": 166.2,
+      "daysWithData": 31,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2007-08",
+      "mm": 92,
+      "daysWithData": 31,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2007-09",
+      "mm": 44.6,
+      "daysWithData": 30,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2007-10",
+      "mm": 24.2,
+      "daysWithData": 31,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2007-11",
+      "mm": 95.6,
+      "daysWithData": 30,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2007-12",
+      "mm": 77.8,
+      "daysWithData": 31,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2008-01",
+      "mm": 144.6,
+      "daysWithData": 31,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2008-02",
+      "mm": 31.6,
+      "daysWithData": 29,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2008-03",
+      "mm": 62.2,
+      "daysWithData": 31,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2008-04",
+      "mm": 128.2,
+      "daysWithData": 30,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2008-05",
+      "mm": 16.6,
+      "daysWithData": 31,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2008-06",
+      "mm": 80.2,
+      "daysWithData": 30,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2008-07",
+      "mm": 126.6,
+      "daysWithData": 31,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2008-08",
+      "mm": 162.4,
+      "daysWithData": 31,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2008-09",
+      "mm": 145.6,
+      "daysWithData": 30,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2008-10",
+      "mm": 76.6,
+      "daysWithData": 31,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2008-11",
+      "mm": 45.4,
+      "daysWithData": 30,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2008-12",
+      "mm": 76.4,
+      "daysWithData": 31,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2009-01",
+      "mm": 4,
+      "daysWithData": 8,
+      "gaps": 23,
+      "complete": false
+    },
+    {
+      "month": "2009-02",
+      "mm": 11,
+      "daysWithData": 13,
+      "gaps": 15,
+      "complete": false
+    },
+    {
+      "month": "2009-03",
+      "mm": 32,
+      "daysWithData": 31,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2009-04",
+      "mm": 28.2,
+      "daysWithData": 30,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2009-05",
+      "mm": 43,
+      "daysWithData": 31,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2009-06",
+      "mm": 75.4,
+      "daysWithData": 30,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2009-07",
+      "mm": 224,
+      "daysWithData": 31,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2009-08",
+      "mm": 84,
+      "daysWithData": 31,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2009-09",
+      "mm": 126.8,
+      "daysWithData": 30,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2009-10",
+      "mm": 57.4,
+      "daysWithData": 31,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2009-11",
+      "mm": 159.2,
+      "daysWithData": 30,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2009-12",
+      "mm": 98,
+      "daysWithData": 31,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2010-01",
+      "mm": 101.8,
+      "daysWithData": 31,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2010-02",
+      "mm": 47.8,
+      "daysWithData": 28,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2010-03",
+      "mm": 142,
+      "daysWithData": 31,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2010-04",
+      "mm": 21.8,
+      "daysWithData": 30,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2010-05",
+      "mm": 52.2,
+      "daysWithData": 31,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2010-06",
+      "mm": 20.2,
+      "daysWithData": 30,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2010-07",
+      "mm": 88,
+      "daysWithData": 31,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2010-08",
+      "mm": 49.4,
+      "daysWithData": 31,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2010-09",
+      "mm": 97.8,
+      "daysWithData": 30,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2010-10",
+      "mm": 89.6,
+      "daysWithData": 31,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2010-11",
+      "mm": 110.8,
+      "daysWithData": 30,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2010-12",
+      "mm": 32,
+      "daysWithData": 31,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2011-01",
+      "mm": 70,
+      "daysWithData": 31,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2011-02",
+      "mm": 109.6,
+      "daysWithData": 28,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2011-03",
+      "mm": 45.6,
+      "daysWithData": 31,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2011-04",
+      "mm": 13.4,
+      "daysWithData": 30,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2011-05",
+      "mm": 71.8,
+      "daysWithData": 31,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2011-06",
+      "mm": 75.2,
+      "daysWithData": 30,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2011-07",
+      "mm": 91,
+      "daysWithData": 31,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2011-08",
+      "mm": 182.6,
+      "daysWithData": 31,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2011-09",
+      "mm": 80.2,
+      "daysWithData": 30,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2011-10",
+      "mm": 63.6,
+      "daysWithData": 31,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2011-11",
+      "mm": 51.2,
+      "daysWithData": 30,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2011-12",
+      "mm": 51.2,
+      "daysWithData": 31,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2012-01",
+      "mm": 30.6,
+      "daysWithData": 31,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2012-02",
+      "mm": 11.6,
+      "daysWithData": 29,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2012-03",
+      "mm": 15.4,
+      "daysWithData": 31,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2012-04",
+      "mm": 0,
+      "daysWithData": 30,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2012-05",
+      "mm": 120.2,
+      "daysWithData": 31,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2012-06",
+      "mm": 216,
+      "daysWithData": 30,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2012-07",
+      "mm": 132.2,
+      "daysWithData": 31,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2012-08",
+      "mm": 81.4,
+      "daysWithData": 31,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2012-09",
+      "mm": 91.2,
+      "daysWithData": 30,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2012-10",
+      "mm": 117.2,
+      "daysWithData": 31,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2012-11",
+      "mm": 104.4,
+      "daysWithData": 30,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2012-12",
+      "mm": 136.6,
+      "daysWithData": 31,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2013-01",
+      "mm": 64.4,
+      "daysWithData": 31,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2013-02",
+      "mm": 33.2,
+      "daysWithData": 28,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2013-03",
+      "mm": 79.2,
+      "daysWithData": 31,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2013-04",
+      "mm": 26,
+      "daysWithData": 30,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2013-05",
+      "mm": 60.8,
+      "daysWithData": 31,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2013-06",
+      "mm": 46.6,
+      "daysWithData": 30,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2013-07",
+      "mm": 85,
+      "daysWithData": 31,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2013-08",
+      "mm": 51,
+      "daysWithData": 31,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2013-09",
+      "mm": 57,
+      "daysWithData": 30,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2013-10",
+      "mm": 116.6,
+      "daysWithData": 31,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2013-11",
+      "mm": 42.4,
+      "daysWithData": 30,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2013-12",
+      "mm": 103.2,
+      "daysWithData": 31,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2014-01",
+      "mm": 99.4,
+      "daysWithData": 31,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2014-02",
+      "mm": 60.2,
+      "daysWithData": 28,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2014-03",
+      "mm": 43.6,
+      "daysWithData": 31,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2014-04",
+      "mm": 72.4,
+      "daysWithData": 18,
+      "gaps": 12,
+      "complete": false
+    },
+    {
+      "month": "2014-05",
+      "mm": 77.6,
+      "daysWithData": 31,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2014-06",
+      "mm": 78.6,
+      "daysWithData": 30,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2014-07",
+      "mm": 34.4,
+      "daysWithData": 31,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2014-08",
+      "mm": 126.4,
+      "daysWithData": 31,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2014-09",
+      "mm": 11.6,
+      "daysWithData": 30,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2014-10",
+      "mm": 141.8,
+      "daysWithData": 31,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2014-11",
+      "mm": 106.6,
+      "daysWithData": 30,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2014-12",
+      "mm": 51.8,
+      "daysWithData": 31,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2015-01",
+      "mm": 68.2,
+      "daysWithData": 31,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2015-02",
+      "mm": 23,
+      "daysWithData": 28,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2015-03",
+      "mm": 49.6,
+      "daysWithData": 31,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2015-04",
+      "mm": 23.2,
+      "daysWithData": 30,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2015-05",
+      "mm": 74.4,
+      "daysWithData": 31,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2015-06",
+      "mm": 27.8,
+      "daysWithData": 30,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2015-07",
+      "mm": 127,
+      "daysWithData": 31,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2015-08",
+      "mm": 43.4,
+      "daysWithData": 31,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2015-09",
+      "mm": 45.2,
+      "daysWithData": 30,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2015-10",
+      "mm": 62.4,
+      "daysWithData": 31,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2015-11",
+      "mm": 119.2,
+      "daysWithData": 30,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2015-12",
+      "mm": 140.6,
+      "daysWithData": 31,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2016-01",
+      "mm": 176,
+      "daysWithData": 31,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2016-02",
+      "mm": 76.2,
+      "daysWithData": 29,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2016-03",
+      "mm": 40.2,
+      "daysWithData": 31,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2016-04",
+      "mm": 109.8,
+      "daysWithData": 30,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2016-05",
+      "mm": 11.6,
+      "daysWithData": 31,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2016-06",
+      "mm": 67.2,
+      "daysWithData": 30,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2016-07",
+      "mm": 70.2,
+      "daysWithData": 31,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2016-08",
+      "mm": 54.6,
+      "daysWithData": 31,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2016-09",
+      "mm": 40.2,
+      "daysWithData": 30,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2016-10",
+      "mm": 76.2,
+      "daysWithData": 31,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2016-11",
+      "mm": 142.6,
+      "daysWithData": 30,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2016-12",
+      "mm": 32.8,
+      "daysWithData": 31,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2017-01",
+      "mm": 30.2,
+      "daysWithData": 31,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2017-02",
+      "mm": 96,
+      "daysWithData": 28,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2017-03",
+      "mm": 57.4,
+      "daysWithData": 31,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2017-04",
+      "mm": 17.6,
+      "daysWithData": 30,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2017-05",
+      "mm": 28.6,
+      "daysWithData": 31,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2017-06",
+      "mm": 182.2,
+      "daysWithData": 30,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2017-07",
+      "mm": 74.6,
+      "daysWithData": 31,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2017-08",
+      "mm": 43.4,
+      "daysWithData": 31,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2017-09",
+      "mm": 54,
+      "daysWithData": 30,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2017-10",
+      "mm": 42.4,
+      "daysWithData": 31,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2017-11",
+      "mm": 47.8,
+      "daysWithData": 30,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2017-12",
+      "mm": 48,
+      "daysWithData": 31,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2018-01",
+      "mm": 54.6,
+      "daysWithData": 31,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2018-02",
+      "mm": 35.2,
+      "daysWithData": 28,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2018-03",
+      "mm": 118,
+      "daysWithData": 31,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2018-04",
+      "mm": 84.8,
+      "daysWithData": 30,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2018-05",
+      "mm": 20,
+      "daysWithData": 31,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2018-06",
+      "mm": 37,
+      "daysWithData": 30,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2018-07",
+      "mm": 55.6,
+      "daysWithData": 31,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2018-08",
+      "mm": 36,
+      "daysWithData": 31,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2018-09",
+      "mm": 65.8,
+      "daysWithData": 30,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2018-10",
+      "mm": 51.2,
+      "daysWithData": 31,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2018-11",
+      "mm": 80.6,
+      "daysWithData": 30,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2018-12",
+      "mm": 49.4,
+      "daysWithData": 31,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2019-01",
+      "mm": 18.4,
+      "daysWithData": 31,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2019-02",
+      "mm": 27.6,
+      "daysWithData": 28,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2019-03",
+      "mm": 84.2,
+      "daysWithData": 31,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2019-04",
+      "mm": 52.4,
+      "daysWithData": 30,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2019-05",
+      "mm": 99.4,
+      "daysWithData": 31,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2019-06",
+      "mm": 157.8,
+      "daysWithData": 30,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2019-07",
+      "mm": 92.4,
+      "daysWithData": 31,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2019-08",
+      "mm": 128.2,
+      "daysWithData": 31,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2019-09",
+      "mm": 63.2,
+      "daysWithData": 30,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2019-10",
+      "mm": 92,
+      "daysWithData": 31,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2019-11",
+      "mm": 209,
+      "daysWithData": 30,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2019-12",
+      "mm": 57.6,
+      "daysWithData": 31,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2020-01",
+      "mm": 51.2,
+      "daysWithData": 31,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2020-02",
+      "mm": 140.8,
+      "daysWithData": 29,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2020-03",
+      "mm": 41.6,
+      "daysWithData": 31,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2020-04",
+      "mm": 6,
+      "daysWithData": 30,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2020-05",
+      "mm": 51.6,
+      "daysWithData": 31,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2020-06",
+      "mm": 85,
+      "daysWithData": 30,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2020-07",
+      "mm": 74,
+      "daysWithData": 31,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2020-08",
+      "mm": 152.8,
+      "daysWithData": 31,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2020-09",
+      "mm": 28.2,
+      "daysWithData": 30,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2020-10",
+      "mm": 143.2,
+      "daysWithData": 31,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2020-11",
+      "mm": 49.2,
+      "daysWithData": 30,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2020-12",
+      "mm": 191.6,
+      "daysWithData": 31,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2021-01",
+      "mm": 166.2,
+      "daysWithData": 31,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2021-02",
+      "mm": 122.8,
+      "daysWithData": 28,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2021-03",
+      "mm": 31,
+      "daysWithData": 31,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2021-04",
+      "mm": 22.2,
+      "daysWithData": 30,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2021-05",
+      "mm": 184,
+      "daysWithData": 31,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2021-06",
+      "mm": 52.8,
+      "daysWithData": 30,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2021-07",
+      "mm": 56.2,
+      "daysWithData": 31,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2021-08",
+      "mm": 96.2,
+      "daysWithData": 31,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2021-09",
+      "mm": 60,
+      "daysWithData": 30,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2021-10",
+      "mm": 169,
+      "daysWithData": 31,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2021-11",
+      "mm": 75,
+      "daysWithData": 30,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2021-12",
+      "mm": 102.8,
+      "daysWithData": 31,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2022-01",
+      "mm": 7,
+      "daysWithData": 31,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2022-02",
+      "mm": 95.8,
+      "daysWithData": 28,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2022-03",
+      "mm": 48.2,
+      "daysWithData": 31,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2022-04",
+      "mm": 49.8,
+      "daysWithData": 30,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2022-05",
+      "mm": 68.6,
+      "daysWithData": 31,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2022-06",
+      "mm": 39.2,
+      "daysWithData": 30,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2022-07",
+      "mm": 59,
+      "daysWithData": 31,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2022-08",
+      "mm": 19.8,
+      "daysWithData": 31,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2022-09",
+      "mm": 138,
+      "daysWithData": 30,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2022-10",
+      "mm": 93.6,
+      "daysWithData": 31,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2022-11",
+      "mm": 147,
+      "daysWithData": 30,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2022-12",
+      "mm": 89.6,
+      "daysWithData": 31,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2023-01",
+      "mm": 29.6,
+      "daysWithData": 31,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2023-02",
+      "mm": 40,
+      "daysWithData": 28,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2023-03",
+      "mm": 94.4,
+      "daysWithData": 31,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2023-04",
+      "mm": 35.2,
+      "daysWithData": 30,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2023-05",
+      "mm": 36.4,
+      "daysWithData": 31,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2023-06",
+      "mm": 35.2,
+      "daysWithData": 30,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2023-07",
+      "mm": 137.2,
+      "daysWithData": 31,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2023-08",
+      "mm": 104,
+      "daysWithData": 31,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2023-09",
+      "mm": 58.2,
+      "daysWithData": 30,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2023-10",
+      "mm": 211.2,
+      "daysWithData": 31,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2023-11",
+      "mm": 126,
+      "daysWithData": 30,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2023-12",
+      "mm": 155.4,
+      "daysWithData": 31,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2024-01",
+      "mm": 72.2,
+      "daysWithData": 31,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2024-02",
+      "mm": 51.2,
+      "daysWithData": 29,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2024-03",
+      "mm": 80,
+      "daysWithData": 31,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2024-04",
+      "mm": 113.6,
+      "daysWithData": 30,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2024-05",
+      "mm": 128.6,
+      "daysWithData": 31,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2024-06",
+      "mm": 33,
+      "daysWithData": 30,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2024-07",
+      "mm": 90.4,
+      "daysWithData": 31,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2024-08",
+      "mm": 52.2,
+      "daysWithData": 31,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2024-09",
+      "mm": 62,
+      "daysWithData": 30,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2024-10",
+      "mm": 107.6,
+      "daysWithData": 31,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2024-11",
+      "mm": 19.2,
+      "daysWithData": 30,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2024-12",
+      "mm": 100.6,
+      "daysWithData": 31,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2025-01",
+      "mm": 70.6,
+      "daysWithData": 31,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2025-02",
+      "mm": 35.2,
+      "daysWithData": 28,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2025-03",
+      "mm": 15,
+      "daysWithData": 31,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2025-04",
+      "mm": 19,
+      "daysWithData": 30,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2025-05",
+      "mm": 35.4,
+      "daysWithData": 31,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2025-06",
+      "mm": 79,
+      "daysWithData": 30,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2025-07",
+      "mm": 82.8,
+      "daysWithData": 31,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2025-08",
+      "mm": 25.4,
+      "daysWithData": 31,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2025-09",
+      "mm": 81.6,
+      "daysWithData": 30,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2025-10",
+      "mm": 88.4,
+      "daysWithData": 31,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2025-11",
+      "mm": 162.4,
+      "daysWithData": 30,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2025-12",
+      "mm": 78,
+      "daysWithData": 31,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2026-01",
+      "mm": 92,
+      "daysWithData": 31,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2026-02",
+      "mm": 102.8,
+      "daysWithData": 28,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2026-03",
+      "mm": 33.6,
+      "daysWithData": 31,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2026-04",
+      "mm": 43.6,
+      "daysWithData": 30,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2026-05",
+      "mm": 39.4,
+      "daysWithData": 31,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2026-06",
+      "mm": 38.2,
+      "daysWithData": 30,
+      "gaps": 0,
+      "complete": true
+    },
+    {
+      "month": "2026-07",
+      "mm": 12,
+      "daysWithData": 25,
+      "gaps": 0,
+      "complete": false
+    }
+  ],
+  "longTermByCalendarMonth": {
+    "1": {
+      "min": 7,
+      "mean": 72.8,
+      "max": 176,
+      "years": 21,
+      "sepaLongTermMean": 68.6
+    },
+    "2": {
+      "min": 11.6,
+      "mean": 65,
+      "max": 140.8,
+      "years": 21,
+      "sepaLongTermMean": 60.7
+    },
+    "3": {
+      "min": 15,
+      "mean": 62.4,
+      "max": 142,
+      "years": 22,
+      "sepaLongTermMean": 63.8
+    },
+    "4": {
+      "min": 0,
+      "mean": 45.6,
+      "max": 134,
+      "years": 21,
+      "sepaLongTermMean": 46.9
+    },
+    "5": {
+      "min": 11.6,
+      "mean": 66.5,
+      "max": 184,
+      "years": 22,
+      "sepaLongTermMean": 67.8
+    },
+    "6": {
+      "min": 16.2,
+      "mean": 74.8,
+      "max": 216,
+      "years": 22,
+      "sepaLongTermMean": 76.6
+    },
+    "7": {
+      "min": 33,
+      "mean": 94.6,
+      "max": 224,
+      "years": 21,
+      "sepaLongTermMean": 94.6
+    },
+    "8": {
+      "min": 19.8,
+      "mean": 81.8,
+      "max": 182.6,
+      "years": 21,
+      "sepaLongTermMean": 81.8
+    },
+    "9": {
+      "min": 11.6,
+      "mean": 70.5,
+      "max": 145.6,
+      "years": 21,
+      "sepaLongTermMean": 69.9
+    },
+    "10": {
+      "min": 24.2,
+      "mean": 99.9,
+      "max": 211.2,
+      "years": 21,
+      "sepaLongTermMean": 100.5
+    },
+    "11": {
+      "min": 19.2,
+      "mean": 97,
+      "max": 209,
+      "years": 21,
+      "sepaLongTermMean": 93.7
+    },
+    "12": {
+      "min": 32,
+      "mean": 86,
+      "max": 191.6,
+      "years": 21,
+      "sepaLongTermMean": 86.4
+    }
+  }
+}
