@@ -5,11 +5,17 @@ name: Refresh weather dashboard
 # with no laptop involved. Data comes from the free SEPA + Open-Meteo services —
 # no secrets required.
 #
-# 09:45 UTC → 09:45 GMT / 10:45 BST, safely after SEPA's 09:00 rain-day figure posts.
+# Runs a few times through the day (all after SEPA's 09:00 rain-day figure posts).
+# GitHub's scheduled runs are best-effort and can be delayed or dropped, so we
+# make several attempts — the job is idempotent (commits only when data changes),
+# so the first attempt with fresh data updates the page and the rest are no-ops.
+# Times are UTC (09:45 UTC = 10:45 BST / 09:45 GMT).
 
 on:
   schedule:
     - cron: "45 9 * * *"
+    - cron: "45 12 * * *"
+    - cron: "45 16 * * *"
   workflow_dispatch: # manual "Run workflow" button
 
 permissions:
