@@ -52,6 +52,12 @@ all 9 and the local-time window on none. `latest.json` gives both
 `sinceMidnightLocal` and `sinceHydroDay0900`, each labelled. "How much rain today?"
 almost always means the first.
 
+**Compare month-to-date with month-to-date.** Setting this month's total against a
+*whole-month* average makes every month look like a drought until the last day of it
+— on the 2nd you'd read "2% of normal". `monthToDate.normalToDate` is the like-for-
+like figure: the 1st to the same day of month, averaged over previous years, with the
+historic range alongside. Use that one. `wholeMonthNormal` is context only.
+
 **`null` is not `0`.** A zero is a real reading of no rain; a null means no reading
 arrived. Conflating them turns a gauge outage into a dry spell. The dense arrays in
 `daily.json` and `recent-15min.json` preserve nulls, and `missingDates` lists them —

@@ -212,7 +212,42 @@ function verifyHydroDay(rain15, rainDay, now) {
 
 // ------------------------------------------------------------------- documents
 
-function buildLatest({ rain15, rainDay, rain36h, river15, riverTrend, riverDay, ltv }, now) {
+// The long-term average rainfall for the 1st to the Nth of this month, taken over
+// every complete year on record and excluding the current one.
+//
+// Without this, month-to-date can only be compared against a whole-month mean —
+// which on the 2nd of the month reads as "2% of normal" and looks like a drought.
+// Comparing part of a month with all of one is not a comparison.
+function monthToDateNormal(dailyDoc, month, dayOfMonth, currentYear) {
+  if (!dailyDoc) return null;
+  const base = Date.parse(`${dailyDoc.firstDate}T00:00:00Z`);
+  const byYear = new Map();
+
+  for (let i = 0; i < dailyDoc.mm.length; i++) {
+    const d = new Date(base + i * 86400000);
+    if (d.getUTCMonth() + 1 !== month || d.getUTCDate() > dayOfMonth) continue;
+    const y = d.getUTCFullYear();
+    if (y === currentYear) continue;
+    if (!byYear.has(y)) byYear.set(y, { sum: 0, days: 0, gaps: 0 });
+    const b = byYear.get(y);
+    if (dailyDoc.mm[i] == null) b.gaps++;
+    else { b.sum += dailyDoc.mm[i]; b.days++; }
+  }
+
+  // Only years with every day of the window present can be averaged.
+  const vals = [...byYear.values()]
+    .filter((b) => b.gaps === 0 && b.days === dayOfMonth)
+    .map((b) => b.sum);
+  if (!vals.length) return null;
+  return {
+    mean: round(vals.reduce((s, v) => s + v, 0) / vals.length, 1),
+    min: round(Math.min(...vals), 1),
+    max: round(Math.max(...vals), 1),
+    years: vals.length,
+  };
+}
+
+function buildLatest({ rain15, rainDay, rain36h, river15, riverTrend, riverDay, ltv, dailyDoc }, now) {
   const newest = lastGood(rain15);
   const lastReadingAt = newest ? newest.t : null;
   const upTo = lastReadingAt ? new Date(Date.parse(lastReadingAt)) : now;
@@ -235,12 +270,17 @@ function buildLatest({ rain15, rainDay, rain36h, river15, riverTrend, riverDay, 
   const monthStart = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), 1));
   const mtd = sumWindow(rain15, monthStart, upTo);
   const monthMean = ltv.get(now.getUTCMonth() + 1) ?? null;
+  const mtdNormal = monthToDateNormal(
+    dailyDoc, now.getUTCMonth() + 1, now.getUTCDate(), now.getUTCFullYear(),
+  );
 
   const level = lastGood(river15);
   const trend = lastGood(riverTrend);
 
-  const flagged = [...sinceMidnight.flagged, ...last24h.flagged];
-  const gaps = sinceMidnight.gaps + last24h.gaps;
+  // Scoped to the last 24h — the windows above overlap, so combining their
+  // counts would double-count the same readings.
+  const flagged = last24h.flagged;
+  const gaps = last24h.gaps;
 
   return {
     station: { id: STATION.id, name: STATION.name, river: STATION.river, lat: STATION.lat, lon: STATION.lon },
@@ -264,9 +304,24 @@ function buildLatest({ rain15, rainDay, rain36h, river15, riverTrend, riverDay, 
       last7d: { mm: last7d.mm },
       monthToDate: {
         mm: mtd.mm,
-        longTermMean: monthMean,
-        percentOfNormal: monthMean ? Math.round((mtd.mm / monthMean) * 100) : null,
-        note: "month-to-date summed from 15-minute values; SEPA's Month.Total series is empty at this station",
+        throughDayOfMonth: now.getUTCDate(),
+        // Like-for-like: this month so far against the same span of previous years.
+        // Use this one for "wetter or drier than normal?".
+        normalToDate: mtdNormal
+          ? {
+              mm: mtdNormal.mean,
+              percentOfNormal: mtdNormal.mean ? Math.round((mtd.mm / mtdNormal.mean) * 100) : null,
+              rangeMm: [mtdNormal.min, mtdNormal.max],
+              basedOnYears: mtdNormal.years,
+            }
+          : null,
+        // The whole-month figure, for context only. Comparing a part-month total
+        // against it understates rainfall badly early in the month.
+        wholeMonthNormal: {
+          mm: monthMean,
+          note: "full-month long-term mean — do NOT compare month-to-date against this",
+        },
+        note: "summed from 15-minute values over the calendar month (UTC); SEPA's Month.Total series is empty at this station. The to-date baseline comes from the 09:00Z daily record, so the two differ by a sub-day boundary offset",
       },
     },
     riverLevel: {
@@ -470,10 +525,11 @@ async function main() {
 
   const dailyPath = `${OUT}/daily.json`;
   let wantDaily = args.includes("--daily");
-  if (!wantDaily) {
-    // First run (or a lost file) backfills itself rather than shipping a stub.
-    try { await readFile(dailyPath, "utf8"); } catch { wantDaily = true; }
-  }
+  // The committed daily record is also the baseline for "wetter than normal?",
+  // so every run reads it, not just the rollup.
+  let dailyDoc = null;
+  try { dailyDoc = JSON.parse(await readFile(dailyPath, "utf8")); }
+  catch { wantDaily = true; } // first run (or a lost file) backfills itself
 
   const now = new Date();
   const today = now.toISOString().slice(0, 10);
@@ -501,8 +557,21 @@ async function main() {
     ? { date: isoDay(dMean.t), min: round(dMin?.v, 3), mean: round(dMean.v, 3), max: round(dMax?.v, 3) }
     : null;
 
+  const write = (name, doc) => writeFile(`${OUT}/${name}`, JSON.stringify(doc, null, 2) + "\n");
+
+  // Rebuild the history first when it is due, so latest.json compares against a
+  // current baseline — and so a first run produces a complete file rather than
+  // one missing normalToDate until the next tick.
+  let daily = null, monthly = null;
+  if (wantDaily) {
+    const rainDayAll = await series(TS.rainDay, HISTORY_START, today);
+    daily = buildDaily(rainDayAll, now);
+    monthly = buildMonthly(daily, ltv, now);
+    dailyDoc = daily;
+  }
+
   const latest = buildLatest(
-    { rain15, rainDay: rainDayRecent, rain36h, river15, riverTrend, riverDay, ltv }, now,
+    { rain15, rainDay: rainDayRecent, rain36h, river15, riverTrend, riverDay, ltv, dailyDoc }, now,
   );
 
   // Refuse to publish a stale file as if it were current (PRD §11).
@@ -516,8 +585,6 @@ async function main() {
       .join("; ");
     throw new Error(`hydrological day check failed on ${check.disagreements.length}/${check.daysChecked} days — ${detail}`);
   }
-
-  const write = (name, doc) => writeFile(`${OUT}/${name}`, JSON.stringify(doc, null, 2) + "\n");
 
   await write("latest.json", latest);
 
@@ -550,10 +617,7 @@ async function main() {
   console.log(`                   hydro-day check: ${latest.hydroDayCheck.checked ? (latest.hydroDayCheck.agrees ? "agrees" : "DISAGREES") : "skipped"}`);
   console.log(`recent-15min.json  ${rain15.length} readings`);
 
-  if (wantDaily) {
-    const rainDayAll = await series(TS.rainDay, HISTORY_START, today);
-    const daily = buildDaily(rainDayAll, now);
-    const monthly = buildMonthly(daily, ltv, now);
+  if (daily) {
     await write("daily.json", daily);
     await write("monthly.json", monthly);
     console.log(`daily.json         ${daily.count} days, ${daily.firstDate} to ${daily.lastDate}, ${daily.gaps} gaps`);

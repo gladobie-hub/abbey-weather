@@ -6,36 +6,48 @@
     "lat": 55.853,
     "lon": -2.387
   },
-  "fetchedAt": "2026-07-26T17:05:17.020Z",
-  "lastReadingAt": "2026-07-26T16:45:00.000Z",
-  "stalenessMinutes": 20,
+  "fetchedAt": "2026-07-26T17:09:06.349Z",
+  "lastReadingAt": "2026-07-26T17:00:00.000Z",
+  "stalenessMinutes": 9,
   "rainfall": {
     "units": "mm",
     "sinceMidnightLocal": {
-      "mm": 5.8,
+      "mm": 8.6,
       "dayDefinition": "midnight Europe/London (BST in summer)",
       "from": "2026-07-25T23:00:00.000Z"
     },
     "sinceHydroDay0900": {
-      "mm": 2.6,
+      "mm": 5.4,
       "dayDefinition": "09:00 UTC hydrological day — 10:00 local under BST",
       "from": "2026-07-26T09:00:00.000Z"
     },
     "last24h": {
-      "mm": 5.8
+      "mm": 8.6
     },
     "last36h": {
-      "mm": 5.8,
+      "mm": 8.6,
       "source": "SEPA Hour.36HourTotal"
     },
     "last7d": {
-      "mm": 6.2
+      "mm": 9
     },
     "monthToDate": {
-      "mm": 14.6,
-      "longTermMean": 94.6,
-      "percentOfNormal": 15,
-      "note": "month-to-date summed from 15-minute values; SEPA's Month.Total series is empty at this station"
+      "mm": 17.4,
+      "throughDayOfMonth": 26,
+      "normalToDate": {
+        "mm": 79.1,
+        "percentOfNormal": 22,
+        "rangeMm": [
+          20.2,
+          209.6
+        ],
+        "basedOnYears": 21
+      },
+      "wholeMonthNormal": {
+        "mm": 94.6,
+        "note": "full-month long-term mean — do NOT compare month-to-date against this"
+      },
+      "note": "summed from 15-minute values over the calendar month (UTC); SEPA's Month.Total series is empty at this station. The to-date baseline comes from the 09:00Z daily record, so the two differ by a sub-day boundary offset"
     }
   },
   "riverLevel": {
