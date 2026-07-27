@@ -1,0 +1,43 @@
+# abbey-weather is the only PUBLIC repo in this estate, and its workflows commit
+# to main unattended — hourly hydrology, three times daily weather. Anything that
+# lands in this folder gets published before a human looks at it.
+#
+# So this file is not housekeeping. It is the only thing standing between a stray
+# file and a public commit. The record repo's check-secrets.sh does NOT cover this
+# repo.
+#
+# ⛔ Never add data/ here. Those JSON files ARE the repo — the bots write them and
+#    the dashboard reads them. Ignoring them would silently break the pipeline.
+
+# Secrets — nothing in this repo should ever need one
+.env
+.env.*
+*.pem
+*.key
+*.p12
+credentials*.json
+secrets*.json
+service-account*.json
+
+# Node — no package.json today, but scripts/ is JavaScript and that can change
+node_modules/
+npm-debug.log*
+yarn-error.log*
+.npm/
+
+# macOS
+.DS_Store
+.AppleDouble
+._*
+
+# Editors
+.vscode/
+.idea/
+*.swp
+
+# Scratch — working files that should not become public history
+*.tmp
+*.bak
+*.log
+scratch/
+tmp/
