@@ -9,13 +9,20 @@ name: Refresh weather dashboard
 # GitHub's scheduled runs are best-effort and can be delayed or dropped, so we
 # make several attempts — the job is idempotent (commits only when data changes),
 # so the first attempt with fresh data updates the page and the rest are no-ops.
-# Times are UTC (09:45 UTC = 10:45 BST / 09:45 GMT).
+# Times are UTC (09:52 UTC = 10:52 BST / 09:52 GMT). UTC and GMT are the same
+# instant; the hour that looks "late" in summer is BST, and it cannot be fixed
+# by moving the clock — the 09:00Z rain-day total does not exist before 10:00 BST.
+#
+# The minutes are odd on purpose — see hydro.yml for the measurement. :45 is a
+# congested slot on GitHub's shared scheduler; these runs were starting 56-91
+# minutes late. :52 also staggers this job clear of hydro.yml at :38, so the two
+# stop queueing behind each other on the shared concurrency group below.
 
 on:
   schedule:
-    - cron: "45 9 * * *"
-    - cron: "45 12 * * *"
-    - cron: "45 16 * * *"
+    - cron: "52 9 * * *"
+    - cron: "52 12 * * *"
+    - cron: "52 16 * * *"
   workflow_dispatch: # manual "Run workflow" button
 
 permissions:
