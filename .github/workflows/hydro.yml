@@ -5,7 +5,7 @@ name: Refresh hydrology data
 #
 # Two schedules:
 #   hourly     — latest.json + recent-15min.json (current conditions)
-#   09:45 UTC  — adds daily.json + monthly.json, after the 09:00 UTC
+#   09:38 UTC  — adds daily.json + monthly.json, after the 09:00 UTC
 #                hydrological day closes and SEPA posts the day's total
 #
 # Hourly is deliberate rather than every-30-minutes: SEPA reports at 15-minute
@@ -15,11 +15,18 @@ name: Refresh hydrology data
 #
 # Scheduled runs are best-effort — GitHub gives no timing guarantee. The job is
 # idempotent and commits only on change, so a missed run costs nothing.
+#
+# The minutes are odd on purpose. GitHub's shared scheduler is heavily
+# oversubscribed at :00, :15, :30 and :45, and deprioritises free-tier jobs
+# queued there. On "0 * * * *" this workflow was starting 8-59 minutes late
+# (~35 min average) and whole hours were being dropped — 02:08, then nothing
+# until 06:20, measured 26-27 Jul 2026. An uncontended minute is the documented
+# mitigation. Keep these off the quarter-hours.
 
 on:
   schedule:
-    - cron: "0 * * * *" # hourly, current conditions
-    - cron: "45 9 * * *" # daily rollup, just after the 09:00Z hydrological day closes
+    - cron: "17 * * * *" # hourly, current conditions
+    - cron: "38 9 * * *" # daily rollup, just after the 09:00Z hydrological day closes
   workflow_dispatch:
     inputs:
       full:
@@ -49,10 +56,13 @@ jobs:
           node-version: "20"
 
       # The rollup cron and the manual "full" tick also rebuild the history.
+      # NB: this string must match the rollup cron above exactly. If they drift
+      # apart the job still succeeds — it just quietly stops rebuilding
+      # daily.json/monthly.json and never runs the boundary audit.
       - name: Decide scope
         id: scope
         run: |
-          if [ "${{ github.event.schedule }}" = "45 9 * * *" ] || [ "${{ inputs.full }}" = "true" ]; then
+          if [ "${{ github.event.schedule }}" = "38 9 * * *" ] || [ "${{ inputs.full }}" = "true" ]; then
             echo "args=--daily" >> "$GITHUB_OUTPUT"
           else
             echo "args=" >> "$GITHUB_OUTPUT"

@@ -13,7 +13,7 @@ comparison against the same dates last year.
 - `refresh-weather-dashboard.mjs` — rebuilds that data block from free public
   services: rainfall from the **SEPA** on-farm gauge (station 36870) and
   temperature/wind from **Open-Meteo** (with their archives for last year).
-- `.github/workflows/refresh.yml` — runs the script every morning (09:45 UTC) on
+- `.github/workflows/refresh.yml` — runs the script every morning (09:52 UTC) on
   GitHub's servers and commits any change. GitHub Pages redeploys on each commit,
   so the link stays current with no computer or login required.
 
@@ -40,7 +40,9 @@ https://raw.githubusercontent.com/gladobie-hub/abbey-weather/main/data/latest.js
 ```
 
 `scripts/fetch-hydro.mjs` builds them from SEPA's KiWIS service;
-`.github/workflows/hydro.yml` runs it hourly, with a fuller rollup at 09:45 UTC.
+`.github/workflows/hydro.yml` runs it hourly, with a fuller rollup at 09:38 UTC.
+Both crons sit on odd minutes to dodge GitHub's congested quarter-hour slots —
+don't tidy them to round numbers.
 
 ### Four things that will mislead you if ignored
 

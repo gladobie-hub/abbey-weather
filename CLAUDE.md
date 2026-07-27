@@ -20,8 +20,13 @@ Two GitHub Actions workflows commit to `main` without you:
 
 | Workflow | Schedule | Writes |
 |---|---|---|
-| `.github/workflows/hydro.yml` | hourly, plus a fuller rollup at 09:45 UTC | `data/` |
-| `.github/workflows/refresh.yml` | 09:45, 12:45 and 16:45 UTC | `index.html` |
+| `.github/workflows/hydro.yml` | hourly at :17, plus a fuller rollup at 09:38 UTC | `data/` |
+| `.github/workflows/refresh.yml` | 09:52, 12:52 and 16:52 UTC | `index.html` |
+
+The odd minutes are deliberate — GitHub's scheduler is congested on the quarter-hours
+and silently delays or drops free-tier jobs queued there. If you change the rollup cron
+in `hydro.yml`, change the matching string in its "Decide scope" step too: they are
+compared literally, and a mismatch stops the daily rebuild without failing the job.
 
 This is by design — it is what keeps the public page current with no computer switched on.
 It also means **`main` will have moved since you branched**, and a branch held open for a
