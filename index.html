@@ -8,9 +8,12 @@
 <title>Abbey St Bathans — Weather Almanac</title>
 <!--
   Abbey St Bathans &mdash; Weather Almanac dashboard
-  Data is baked in (Artifacts run under a CSP that blocks live API calls).
-  The scheduled refresh routine replaces ONLY the JSON inside
-  #almanac-data below, then redeploys this same file to the same Artifact URL.
+  Published by GitHub Pages from main: https://gladobie-hub.github.io/abbey-weather/
+
+  Data is baked into #almanac-data below rather than fetched, so the page is
+  static and loads instantly with no request in flight. .github/workflows/hydro.yml
+  runs refresh-weather-dashboard.mjs, which replaces ONLY that JSON block; the
+  push then triggers a Pages redeploy. Don't hand-edit the block — it is generated.
   "days"/"weekly" = current year (from the almanac / live sources); "lastYear"
   = the matching dates one year back, pulled from the SEPA + Open-Meteo archives.
 -->

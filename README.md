@@ -13,9 +13,11 @@ comparison against the same dates last year.
 - `refresh-weather-dashboard.mjs` — rebuilds that data block from free public
   services: rainfall from the **SEPA** on-farm gauge (station 36870) and
   temperature/wind from **Open-Meteo** (with their archives for last year).
-- `.github/workflows/refresh.yml` — runs the script every morning (09:52 UTC) on
-  GitHub's servers and commits any change. GitHub Pages redeploys on each commit,
-  so the link stays current with no computer or login required.
+- `.github/workflows/hydro.yml` — runs that script on GitHub's servers as part of its
+  hourly tick and commits any change. GitHub Pages redeploys on each commit, so the
+  link stays current with no computer or login required. `refresh.yml` does the same
+  thing on demand only, for when you want a rebuild without waiting for the next
+  hourly run.
 
 No secrets or credentials are needed — it reads only public weather data.
 
@@ -40,9 +42,14 @@ https://raw.githubusercontent.com/gladobie-hub/abbey-weather/main/data/latest.js
 ```
 
 `scripts/fetch-hydro.mjs` builds them from SEPA's KiWIS service;
-`.github/workflows/hydro.yml` runs it hourly, with a fuller rollup at 09:38 UTC.
-Both crons sit on odd minutes to dodge GitHub's congested quarter-hour slots —
-don't tidy them to round numbers.
+`.github/workflows/hydro.yml` runs it hourly, with a fuller rollup at 09:38 UTC, and
+rebuilds the dashboard on the same tick. Both crons sit on odd minutes to dodge
+GitHub's congested quarter-hour slots — don't tidy them to round numbers.
+
+Expect gaps. GitHub's scheduler drops free-tier runs regardless of the minute chosen:
+on 28 Jul 2026 an hourly cron produced runs at 00:10, 03:34, 06:39 and 10:42. Both
+scripts are idempotent and commit only on change, so a missed run costs nothing — but
+don't read an hour with no commit as an hour with no rain.
 
 ### Four things that will mislead you if ignored
 

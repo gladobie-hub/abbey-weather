@@ -4,17 +4,22 @@
 // Pulls the rolling last-14-days window for the current year, plus the matching
 // dates one year back, straight from the public weather services — no farm
 // backend needed. Rewrites ONLY the #almanac-data JSON block in the HTML file;
-// the scheduled task then republishes the file to the same Artifact URL.
+// GitHub Pages then republishes index.html from main on the next push.
 //
 //   Current year : SEPA Day.Total (live) + Open-Meteo forecast (observed blend)
 //   Last year    : SEPA from/to + Open-Meteo archive (ERA5) for the same dates
+//
+// Run from hydro.yml rather than on a schedule of its own — see that workflow for
+// why. This reads a different SEPA series from scripts/fetch-hydro.mjs (Day.Total
+// 65453010, against the hydro script's 65970010) because the page also needs
+// Open-Meteo temperature and wind, which data/*.json does not carry.
 //
 // Usage: node refresh-weather-dashboard.mjs [path-to-html]
 
 import { readFile, writeFile } from "node:fs/promises";
 
 const HTML_PATH = process.argv[2] ||
-  new URL("./weather-almanac-dashboard.html", import.meta.url).pathname;
+  new URL("./index.html", import.meta.url).pathname;
 
 const SEPA_TS_ID = "65453010"; // Abbey St Bathans, Precip Day.Total (mm)
 const LAT = 55.853, LON = -2.387;
@@ -33,10 +38,28 @@ function londonToday() {
   return `${p.year}-${p.month}-${p.day}`;
 }
 
+// Retry only genuinely transient upstream trouble: 5xx and network/DNS errors.
+// A 4xx still fails on the first attempt — it means a bad ts_id or a changed API,
+// which is a bug to fix rather than a blip to ride out. Keep it that narrow.
+const RETRIES = 3;
+
 async function getJson(url, label) {
-  const res = await fetch(url);
-  if (!res.ok) throw new Error(`${label} failed: ${res.status} ${res.statusText}`);
-  return res.json();
+  for (let attempt = 1; ; attempt++) {
+    let res;
+    try {
+      res = await fetch(url);
+    } catch (e) {
+      if (attempt >= RETRIES) throw new Error(`${label} failed: ${e.message}`);
+      await new Promise((r) => setTimeout(r, attempt * 2000));
+      continue;
+    }
+    if (res.status >= 500 && attempt < RETRIES) {
+      await new Promise((r) => setTimeout(r, attempt * 2000));
+      continue;
+    }
+    if (!res.ok) throw new Error(`${label} failed: ${res.status} ${res.statusText}`);
+    return res.json();
+  }
 }
 
 // SEPA rainfall for a date range → Map<YYYY-MM-DD, mm>
