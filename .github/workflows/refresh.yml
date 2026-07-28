@@ -42,4 +42,5 @@ jobs:
       - name: Commit if the data changed
         run: |
           scripts/commit-and-push.sh \
-            "Refresh weather dashboard ($(date -u +'%Y-%m-%d %H:%M')Z)" index.html
+            "Refresh weather dashboard ($(date -u +'%Y-%m-%d %H:%M')Z)" \
+            index.html data/dashboard.json

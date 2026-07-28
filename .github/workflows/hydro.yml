@@ -90,16 +90,20 @@ jobs:
           scripts/commit-and-push.sh \
             "Refresh hydrology data ($(date -u +'%Y-%m-%d %H:%M')Z)" data/
 
-      # Rebuilds only the #almanac-data JSON block in index.html. Deliberately not
+      # Writes data/dashboard.json (what the page fetches) and the matching
+      # #almanac-data fallback block in index.html. Deliberately not
       # continue-on-error: if the dashboard sources break, the run should redden
       # and email rather than quietly leave a stale page looking current.
       - name: Rebuild the dashboard
         run: node refresh-weather-dashboard.mjs index.html
 
+      # Both paths, one commit — they carry the same payload and must never be
+      # published out of step with each other.
       - name: Commit if the dashboard changed
         run: |
           scripts/commit-and-push.sh \
-            "Refresh weather dashboard ($(date -u +'%Y-%m-%d %H:%M')Z)" index.html
+            "Refresh weather dashboard ($(date -u +'%Y-%m-%d %H:%M')Z)" \
+            index.html data/dashboard.json
 
       # The inline check in every run usually has no power — it only sees ~10 days
       # and most days can't distinguish a 09:00Z boundary from a 09:00-local one.
