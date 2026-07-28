@@ -70,6 +70,34 @@ const addDays = (d, n) => new Date(d.getTime() + n * 86400000);
 
 // ---------------------------------------------------------------- KiWIS access
 
+// SEPA's demonstrator service returns the occasional 500 — one did on 2026-07-28,
+// costing a whole run at a point where GitHub was already dropping most of them.
+// Retry only what is genuinely transient: 5xx and network/DNS errors. Everything
+// else still fails on the first attempt, and that is the point — a 4xx means a bad
+// ts_id (our bug, not a blip), and the parse, staleness and hydrological-day guards
+// below exist precisely to stop a plausible-but-wrong file being published. Do not
+// widen this into a general retry wrapper.
+const RETRIES = 3;
+
+async function fetchWithRetry(url, label) {
+  for (let attempt = 1; ; attempt++) {
+    let res;
+    try {
+      res = await fetch(url);
+    } catch (e) {
+      if (attempt >= RETRIES) throw new Error(`${label} failed: ${e.message}`);
+      await new Promise((r) => setTimeout(r, attempt * 2000));
+      continue;
+    }
+    if (res.status >= 500 && attempt < RETRIES) {
+      await new Promise((r) => setTimeout(r, attempt * 2000));
+      continue;
+    }
+    if (!res.ok) throw new Error(`${label} failed: ${res.status} ${res.statusText}`);
+    return res;
+  }
+}
+
 async function kiwis(tsId, params) {
   const qs = new URLSearchParams({
     service: "kisters",
@@ -82,8 +110,7 @@ async function kiwis(tsId, params) {
     kvp: "true",
     ...params,
   });
-  const res = await fetch(`${KIWIS}?${qs}`);
-  if (!res.ok) throw new Error(`KiWIS ${tsId} failed: ${res.status} ${res.statusText}`);
+  const res = await fetchWithRetry(`${KIWIS}?${qs}`, `KiWIS ${tsId}`);
   const body = await res.json();
   const block = Array.isArray(body) ? body[0] : null;
   if (!block || !Array.isArray(block.data)) {

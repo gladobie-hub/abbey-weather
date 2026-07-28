@@ -1,33 +1,25 @@
-name: Refresh weather dashboard
+name: Refresh weather dashboard (manual)
 
-# Rebuilds the dashboard's data every morning on GitHub's servers and commits it.
-# GitHub Pages redeploys on each push to main, so the public link stays current
-# with no laptop involved. Data comes from the free SEPA + Open-Meteo services —
-# no secrets required.
+# Manual fallback only. The dashboard is normally rebuilt by hydro.yml, on the
+# same tick as the hydrology data — see that workflow for why.
 #
-# Runs a few times through the day (all after SEPA's 09:00 rain-day figure posts).
-# GitHub's scheduled runs are best-effort and can be delayed or dropped, so we
-# make several attempts — the job is idempotent (commits only when data changes),
-# so the first attempt with fresh data updates the page and the rest are no-ops.
-# Times are UTC (09:52 UTC = 10:52 BST / 09:52 GMT). UTC and GMT are the same
-# instant; the hour that looks "late" in summer is BST, and it cannot be fixed
-# by moving the clock — the 09:00Z rain-day total does not exist before 10:00 BST.
+# This job used to carry its own 09:52 / 12:52 / 16:52 UTC schedule and was the
+# only thing updating the public page. GitHub's shared scheduler made that
+# unreliable: measured 27-28 Jul 2026, the three slots ran 1-3 hours late and then
+# one failed to fire at all, leaving the page a day stale. Adding more slots would
+# not have helped — the runs were being dropped, not merely delayed.
 #
-# The minutes are odd on purpose — see hydro.yml for the measurement. :45 is a
-# congested slot on GitHub's shared scheduler; these runs were starting 56-91
-# minutes late. :52 also staggers this job clear of hydro.yml at :38, so the two
-# stop queueing behind each other on the shared concurrency group below.
+# The schedule is deliberately gone rather than merely reduced: two workflows
+# committing index.html would race on main. Keep it that way. Use the "Run
+# workflow" button to force a rebuild between hydro runs.
 
 on:
-  schedule:
-    - cron: "52 9 * * *"
-    - cron: "52 12 * * *"
-    - cron: "52 16 * * *"
   workflow_dispatch: # manual "Run workflow" button
 
 permissions:
   contents: write
 
+# Shared with hydro.yml, which also pushes index.html to main.
 concurrency:
   group: refresh-weather
   cancel-in-progress: false
@@ -49,12 +41,5 @@ jobs:
 
       - name: Commit if the data changed
         run: |
-          git config user.name "weather-bot"
-          git config user.email "actions@users.noreply.github.com"
-          git add index.html
-          if git diff --staged --quiet; then
-            echo "No change — weather data already current."
-          else
-            git commit -m "Refresh weather data ($(date -u +%Y-%m-%d))"
-            git push
-          fi
+          scripts/commit-and-push.sh \
+            "Refresh weather dashboard ($(date -u +'%Y-%m-%d %H:%M')Z)" index.html

@@ -1,7 +1,16 @@
-name: Refresh hydrology data
+name: Refresh weather data
 
 # Keeps data/*.json current from SEPA's KiWIS service, so rainfall and river
 # questions are answered by fetching one static file rather than querying an API.
+# Also rebuilds the public dashboard (index.html) on the same tick.
+#
+# The dashboard used to refresh on its own 3-a-day cron in refresh.yml. It was the
+# least reliable thing in the repo — on 27 Jul 2026 its three slots landed 1-3
+# hours late, and on the 28th the 09:52 slot never fired at all, leaving the public
+# page a day stale while data/ was current. Riding on this job instead means the
+# page updates on whichever run first lands after the 09:00Z day closes. That is
+# also why refresh.yml no longer has a schedule: two workflows writing index.html
+# would race.
 #
 # Two schedules:
 #   hourly     — latest.json + recent-15min.json (current conditions)
@@ -37,8 +46,8 @@ on:
 permissions:
   contents: write
 
-# Shared with the dashboard job: both push to main, and serialising them avoids
-# racing on the same branch.
+# Shared with refresh.yml, which is now manual-only: both push to main, and
+# serialising them avoids racing on the same branch.
 concurrency:
   group: refresh-weather
   cancel-in-progress: false
@@ -73,29 +82,24 @@ jobs:
       - name: Fetch SEPA hydrology
         run: node scripts/fetch-hydro.mjs ${{ steps.scope.outputs.args }}
 
-      - name: Commit if the data changed
+      # Commit the hydrology data before touching the dashboard, so that if
+      # Open-Meteo is down the data/ update is already banked rather than lost
+      # with the run.
+      - name: Commit if the hydrology data changed
         run: |
-          git config user.name "hydro-bot"
-          git config user.email "actions@users.noreply.github.com"
-          git add data/
-          if git diff --staged --quiet; then
-            echo "No change — hydrology data already current."
-            exit 0
-          fi
-          git commit -m "Refresh hydrology data ($(date -u +'%Y-%m-%d %H:%M')Z)"
-          # The dashboard job pushes to the same branch; rebase and retry rather
-          # than fail on a race.
-          for attempt in 1 2 3; do
-            if git push; then
-              echo "Pushed on attempt $attempt."
-              exit 0
-            fi
-            echo "Push rejected, rebasing (attempt $attempt)..."
-            git pull --rebase --autostash origin main || true
-            sleep 5
-          done
-          echo "Could not push after 3 attempts." >&2
-          exit 1
+          scripts/commit-and-push.sh \
+            "Refresh hydrology data ($(date -u +'%Y-%m-%d %H:%M')Z)" data/
+
+      # Rebuilds only the #almanac-data JSON block in index.html. Deliberately not
+      # continue-on-error: if the dashboard sources break, the run should redden
+      # and email rather than quietly leave a stale page looking current.
+      - name: Rebuild the dashboard
+        run: node refresh-weather-dashboard.mjs index.html
+
+      - name: Commit if the dashboard changed
+        run: |
+          scripts/commit-and-push.sh \
+            "Refresh weather dashboard ($(date -u +'%Y-%m-%d %H:%M')Z)" index.html
 
       # The inline check in every run usually has no power — it only sees ~10 days
       # and most days can't distinguish a 09:00Z boundary from a 09:00-local one.
