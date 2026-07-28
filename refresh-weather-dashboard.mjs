@@ -17,9 +17,14 @@
 // Usage: node refresh-weather-dashboard.mjs [path-to-html]
 
 import { readFile, writeFile } from "node:fs/promises";
+import { dirname, join } from "node:path";
 
 const HTML_PATH = process.argv[2] ||
   new URL("./index.html", import.meta.url).pathname;
+
+// Sits beside the HTML, so the page's relative fetch("data/dashboard.json")
+// resolves whether it is served from the repo root or a project subpath.
+const JSON_PATH = join(dirname(HTML_PATH), "data", "dashboard.json");
 
 const SEPA_TS_ID = "65453010"; // Abbey St Bathans, Precip Day.Total (mm)
 const LAT = 55.853, LON = -2.387;
@@ -154,14 +159,22 @@ async function main() {
       : undefined,
   };
 
-  // Rewrite the #almanac-data block in place
+  const json = JSON.stringify(data, null, 2);
+
+  // Two outputs, same payload. data/dashboard.json is what the page actually
+  // fetches (with a cache-buster, so it is never served stale); the #almanac-data
+  // block is the baked-in fallback the page renders first. Write the fallback
+  // first — if that throws because the HTML changed shape, we haven't already
+  // published a JSON file the page would then disagree with.
   const html = await readFile(HTML_PATH, "utf8");
-  const block = `<script id="almanac-data" type="application/json">\n${JSON.stringify(data, null, 2)}\n</script>`;
+  const block = `<script id="almanac-data" type="application/json">\n${json}\n</script>`;
   const re = /<script id="almanac-data" type="application\/json">[\s\S]*?<\/script>/;
   if (!re.test(html)) throw new Error("Could not find #almanac-data block in HTML");
   await writeFile(HTML_PATH, html.replace(re, block));
 
-  console.log(`Refreshed ${HTML_PATH}`);
+  await writeFile(JSON_PATH, json + "\n");
+
+  console.log(`Refreshed ${HTML_PATH} and ${JSON_PATH}`);
   console.log(`  current: ${cur.length} days ending ${cur.at(-1).date} (rain ${data.weekly.totalRain}mm/wk)`);
   console.log(`  last year: ${data.lastYear ? data.lastYear.days.length + " days, " + data.lastYear.weekly.totalRain + "mm/wk" : "unavailable"}`);
 }

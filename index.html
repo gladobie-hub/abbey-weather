@@ -10,10 +10,12 @@
   Abbey St Bathans &mdash; Weather Almanac dashboard
   Published by GitHub Pages from main: https://gladobie-hub.github.io/abbey-weather/
 
-  Data is baked into #almanac-data below rather than fetched, so the page is
-  static and loads instantly with no request in flight. .github/workflows/hydro.yml
-  runs refresh-weather-dashboard.mjs, which replaces ONLY that JSON block; the
-  push then triggers a Pages redeploy. Don't hand-edit the block — it is generated.
+  #almanac-data below is a baked-in copy, rendered immediately so the page never
+  blanks or waits on the network. The script at the bottom then fetches the same
+  payload from data/dashboard.json with a cache-buster and re-renders, because
+  Pages serves this HTML with an uncontrollable max-age=600 and cached HTML meant
+  cached numbers. Both are written by refresh-weather-dashboard.mjs, run from
+  .github/workflows/hydro.yml. Don't hand-edit either — they are generated.
   "days"/"weekly" = current year (from the almanac / live sources); "lastYear"
   = the matching dates one year back, pulled from the SEPA + Open-Meteo archives.
 -->
@@ -498,7 +500,7 @@
 </div>
 
 <script>
-  const DATA = JSON.parse(document.getElementById("almanac-data").textContent);
+function render(DATA) {
   const { days, weekly, lastYear } = DATA;
 
   const DOW = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
@@ -632,6 +634,27 @@
     `Temperature and wind from <b>Open-Meteo</b>, observed-blend for completed days. ` +
     `Last year (${lastYear ? lastYear.label : "prior"}) from the <b>SEPA</b> and <b>Open-Meteo archives</b> for the matching dates. ` +
     `Logged automatically to the Farm Almanac &mdash; no manual entry.`;
+}
+
+// Render the baked-in copy first so the page is never blank and never waits on a
+// network round trip, then replace it with a freshly fetched copy.
+//
+// This two-step exists because GitHub Pages serves HTML with
+// `cache-control: max-age=600` and that header cannot be overridden on Pages. A
+// cached page meant cached numbers, because the data was baked into the HTML — the
+// symptom was a dashboard that stayed stale until you cleared the browser cache by
+// hand, on every device. data/dashboard.json carries the same payload and is
+// fetched with a cache-buster, so what you see is always current even when the
+// surrounding HTML is served from cache.
+//
+// If the fetch fails we keep the baked copy: it is the last known good, and a
+// slightly old figure beats an empty page. Don't remove the baked block.
+render(JSON.parse(document.getElementById("almanac-data").textContent));
+
+fetch(`data/dashboard.json?t=${Date.now()}`, { cache: "no-store" })
+  .then((r) => (r.ok ? r.json() : Promise.reject(new Error(`HTTP ${r.status}`))))
+  .then(render)
+  .catch((e) => console.warn("Live data fetch failed, showing baked-in copy:", e.message));
 </script>
 
 </body>

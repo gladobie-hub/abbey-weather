@@ -8,8 +8,17 @@ comparison against the same dates last year.
 
 ## How it works
 
-- `index.html` — the dashboard. All data is baked into a single JSON block
-  (`#almanac-data`) so the page is fully static and loads instantly.
+- `index.html` — the dashboard. It renders a baked-in copy of the data
+  (`#almanac-data`) immediately, then fetches `data/dashboard.json` with a
+  cache-buster and re-renders from that. Both carry the same payload.
+
+  The two-step is not redundancy for its own sake. GitHub Pages serves HTML with
+  `cache-control: max-age=600` and that header **cannot be overridden on Pages**, so
+  with the data baked into the HTML a cached page meant cached numbers — the
+  dashboard stayed stale on a phone or laptop until the browser cache was cleared by
+  hand. Fetching the payload separately sidesteps the cached HTML entirely. The baked
+  copy remains as the fallback, so a failed fetch shows the last known good rather
+  than an empty page. Keep both.
 - `refresh-weather-dashboard.mjs` — rebuilds that data block from free public
   services: rainfall from the **SEPA** on-farm gauge (station 36870) and
   temperature/wind from **Open-Meteo** (with their archives for last year).
@@ -34,6 +43,10 @@ the archive.
 | [`data/daily.json`](data/daily.json) | ~70KB | Every daily total since 2005, plus precomputed annual totals, wettest days and dry runs |
 | [`data/recent-15min.json`](data/recent-15min.json) | ~20KB | Rolling 30 days at 15-minute resolution, for storm profiles |
 | [`data/monthly.json`](data/monthly.json) | ~33KB | Monthly totals and long-term min/mean/max per calendar month |
+
+`data/dashboard.json` also lives here, but it is the page's own render payload —
+14 days of rain/temp/wind plus last year's matching dates — not part of this
+ask-interface. For a rainfall question, use `latest.json` or `daily.json`.
 
 Read them raw at:
 
