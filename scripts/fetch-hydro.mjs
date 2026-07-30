@@ -72,11 +72,14 @@ const addDays = (d, n) => new Date(d.getTime() + n * 86400000);
 
 // SEPA's demonstrator service returns the occasional 500 — one did on 2026-07-28,
 // costing a whole run at a point where GitHub was already dropping most of them.
-// Retry only what is genuinely transient: 5xx and network/DNS errors. Everything
-// else still fails on the first attempt, and that is the point — a 4xx means a bad
-// ts_id (our bug, not a blip), and the parse, staleness and hydrological-day guards
-// below exist precisely to stop a plausible-but-wrong file being published. Do not
-// widen this into a general retry wrapper.
+// A 429 cost another run on 2026-07-29: nine ts_ids fire concurrently every tick
+// (scripts/fetch-hydro.mjs's Promise.all below), enough to occasionally trip
+// SEPA's rate limiter. Retry only what is genuinely transient: 5xx, 429, and
+// network/DNS errors. Everything else still fails on the first attempt, and that
+// is the point — a 4xx other than 429 means a bad ts_id (our bug, not a blip),
+// and the parse, staleness and hydrological-day guards below exist precisely to
+// stop a plausible-but-wrong file being published. Do not widen this into a
+// general retry wrapper.
 const RETRIES = 3;
 
 async function fetchWithRetry(url, label) {
@@ -89,8 +92,10 @@ async function fetchWithRetry(url, label) {
       await new Promise((r) => setTimeout(r, attempt * 2000));
       continue;
     }
-    if (res.status >= 500 && attempt < RETRIES) {
-      await new Promise((r) => setTimeout(r, attempt * 2000));
+    if ((res.status >= 500 || res.status === 429) && attempt < RETRIES) {
+      const retryAfter = Number(res.headers.get("retry-after"));
+      const delayMs = retryAfter > 0 ? retryAfter * 1000 : attempt * 2000;
+      await new Promise((r) => setTimeout(r, delayMs));
       continue;
     }
     if (!res.ok) throw new Error(`${label} failed: ${res.status} ${res.statusText}`);
