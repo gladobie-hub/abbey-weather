@@ -6,9 +6,9 @@
     "lat": 55.853,
     "lon": -2.387
   },
-  "fetchedAt": "2026-07-31T23:16:43.410Z",
-  "lastReadingAt": "2026-07-31T23:00:00.000Z",
-  "stalenessMinutes": 17,
+  "fetchedAt": "2026-08-01T00:13:31.028Z",
+  "lastReadingAt": "2026-08-01T00:00:00.000Z",
+  "stalenessMinutes": 14,
   "rainfall": {
     "units": "mm",
     "sinceMidnightLocal": {
@@ -29,22 +29,22 @@
       "source": "SEPA Hour.36HourTotal"
     },
     "last7d": {
-      "mm": 34.4
+      "mm": 34
     },
     "monthToDate": {
-      "mm": 42.8,
-      "throughDayOfMonth": 31,
+      "mm": 0,
+      "throughDayOfMonth": 1,
       "normalToDate": {
-        "mm": 94.6,
-        "percentOfNormal": 45,
+        "mm": 2.6,
+        "percentOfNormal": 0,
         "rangeMm": [
-          33,
-          224
+          0,
+          17.6
         ],
         "basedOnYears": 21
       },
       "wholeMonthNormal": {
-        "mm": 94.6,
+        "mm": 81.8,
         "note": "full-month long-term mean — do NOT compare month-to-date against this"
       },
       "note": "summed from 15-minute values over the calendar month (UTC); SEPA's Month.Total series is empty at this station. The to-date baseline comes from the 09:00Z daily record, so the two differ by a sub-day boundary offset"
@@ -53,7 +53,7 @@
   "riverLevel": {
     "units": "m",
     "m": 0.299,
-    "at": "2026-07-31T23:00:00.000Z",
+    "at": "2026-07-31T23:45:00.000Z",
     "trend": "steady",
     "lastClosedDay": {
       "date": "2026-07-30",
