@@ -6,9 +6,9 @@
     "lat": 55.853,
     "lon": -2.387
   },
-  "fetchedAt": "2026-08-02T03:51:37.901Z",
-  "lastReadingAt": "2026-08-02T03:30:00.000Z",
-  "stalenessMinutes": 22,
+  "fetchedAt": "2026-08-02T06:44:52.730Z",
+  "lastReadingAt": "2026-08-02T06:30:00.000Z",
+  "stalenessMinutes": 15,
   "rainfall": {
     "units": "mm",
     "sinceMidnightLocal": {
@@ -29,7 +29,7 @@
       "source": "SEPA Hour.36HourTotal"
     },
     "last7d": {
-      "mm": 32
+      "mm": 30.8
     },
     "monthToDate": {
       "mm": 0,
@@ -52,8 +52,8 @@
   },
   "riverLevel": {
     "units": "m",
-    "m": 0.294,
-    "at": "2026-08-02T03:30:00.000Z",
+    "m": 0.293,
+    "at": "2026-08-02T06:15:00.000Z",
     "trend": "steady",
     "lastClosedDay": {
       "date": "2026-07-31",
