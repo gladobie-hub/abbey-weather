@@ -6,9 +6,9 @@
     "lat": 55.853,
     "lon": -2.387
   },
-  "fetchedAt": "2026-08-09T09:55:40.273Z",
-  "lastReadingAt": "2026-08-09T09:45:00.000Z",
-  "stalenessMinutes": 11,
+  "fetchedAt": "2026-08-09T10:10:19.396Z",
+  "lastReadingAt": "2026-08-09T10:00:00.000Z",
+  "stalenessMinutes": 10,
   "rainfall": {
     "units": "mm",
     "sinceMidnightLocal": {
