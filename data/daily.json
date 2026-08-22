@@ -3,19 +3,19 @@
     "id": 36870,
     "name": "Abbey St Bathans"
   },
-  "fetchedAt": "2026-08-21T10:04:31.711Z",
+  "fetchedAt": "2026-08-22T09:56:20.818Z",
   "dayDefinition": "09:00 UTC to 09:00 UTC, stamped with the START date",
   "units": "mm",
   "encoding": "mm[i] is the total for the day (firstDate + i days). Dates are consecutive with none missing. null means no reading was received — never read it as zero rainfall",
   "firstDate": "2005-01-01",
-  "lastDate": "2026-08-20",
-  "count": 7902,
+  "lastDate": "2026-08-21",
+  "count": 7903,
   "gaps": 50,
   "qualityCounts": {
     "good": 1404,
     "unknown": 2073,
     "missing": 50,
-    "unclassified": 4065,
+    "unclassified": 4066,
     "suspect": 310
   },
   "stats": {
@@ -70,7 +70,7 @@
       "from": "2010-02-25",
       "to": "2010-03-28"
     },
-    "currentDryRun": 0,
+    "currentDryRun": 1,
     "calendarYearTotals": {
       "2005": 988.2,
       "2006": 765.4,
@@ -8387,6 +8387,7 @@
     7.8,
     0,
     14,
-    2.6
+    2.6,
+    0
   ]
 }
