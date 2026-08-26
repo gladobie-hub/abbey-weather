@@ -6,9 +6,9 @@
     "lat": 55.853,
     "lon": -2.387
   },
-  "fetchedAt": "2026-08-26T09:01:27.278Z",
-  "lastReadingAt": "2026-08-26T08:45:00.000Z",
-  "stalenessMinutes": 16,
+  "fetchedAt": "2026-08-26T09:56:51.589Z",
+  "lastReadingAt": "2026-08-26T09:45:00.000Z",
+  "stalenessMinutes": 12,
   "rainfall": {
     "units": "mm",
     "sinceMidnightLocal": {
@@ -29,7 +29,7 @@
       "source": "SEPA Hour.36HourTotal"
     },
     "last7d": {
-      "mm": 18
+      "mm": 17.2
     },
     "monthToDate": {
       "mm": 42.2,
@@ -53,13 +53,13 @@
   "riverLevel": {
     "units": "m",
     "m": 0.289,
-    "at": "2026-08-26T08:30:00.000Z",
+    "at": "2026-08-26T09:15:00.000Z",
     "trend": "steady",
     "lastClosedDay": {
-      "date": "2026-08-24",
-      "min": 0.286,
+      "date": "2026-08-25",
+      "min": 0.287,
       "mean": 0.289,
-      "max": 0.293
+      "max": 0.291
     }
   },
   "quality": {
@@ -72,8 +72,8 @@
     "checked": true,
     "agrees": true,
     "window": "09:00Z to 09:00Z, fixed year-round",
-    "daysChecked": 8,
-    "daysAgreed": 8,
+    "daysChecked": 9,
+    "daysAgreed": 9,
     "discriminatingDays": 0,
     "localTimeHypothesisMatches": 0,
     "disagreements": [],
