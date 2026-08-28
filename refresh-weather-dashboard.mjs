@@ -43,10 +43,23 @@ function londonToday() {
   return `${p.year}-${p.month}-${p.day}`;
 }
 
-// Retry only genuinely transient upstream trouble: 5xx and network/DNS errors.
-// A 4xx still fails on the first attempt — it means a bad ts_id or a changed API,
-// which is a bug to fix rather than a blip to ride out. Keep it that narrow.
-const RETRIES = 3;
+// Retry only genuinely transient upstream trouble: 5xx, 429 and network/DNS
+// errors. Other 4xx responses still fail on the first attempt — they mean a bad
+// ts_id or changed API, which is a bug to fix rather than a blip to ride out.
+const RETRIES = 5;
+const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+function retryDelayMs(res, attempt) {
+  const retryAfter = res.headers.get("retry-after");
+  if (retryAfter) {
+    const seconds = Number(retryAfter);
+    if (Number.isFinite(seconds) && seconds >= 0) return seconds * 1000;
+    const until = Date.parse(retryAfter) - Date.now();
+    if (Number.isFinite(until) && until > 0) return until;
+  }
+  const base = res.status === 429 ? 5000 : 2000;
+  return base * 2 ** (attempt - 1) + Math.random() * 1000;
+}
 
 async function getJson(url, label) {
   for (let attempt = 1; ; attempt++) {
@@ -55,11 +68,11 @@ async function getJson(url, label) {
       res = await fetch(url);
     } catch (e) {
       if (attempt >= RETRIES) throw new Error(`${label} failed: ${e.message}`);
-      await new Promise((r) => setTimeout(r, attempt * 2000));
+      await sleep(2000 * 2 ** (attempt - 1) + Math.random() * 1000);
       continue;
     }
-    if (res.status >= 500 && attempt < RETRIES) {
-      await new Promise((r) => setTimeout(r, attempt * 2000));
+    if ((res.status >= 500 || res.status === 429) && attempt < RETRIES) {
+      await sleep(retryDelayMs(res, attempt));
       continue;
     }
     if (!res.ok) throw new Error(`${label} failed: ${res.status} ${res.statusText}`);
