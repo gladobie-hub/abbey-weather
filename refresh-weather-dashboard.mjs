@@ -46,19 +46,20 @@ function londonToday() {
 // Retry only genuinely transient upstream trouble: 5xx, 429 and network/DNS
 // errors. Other 4xx responses still fail on the first attempt — they mean a bad
 // ts_id or changed API, which is a bug to fix rather than a blip to ride out.
-const RETRIES = 5;
+const RETRIES = 8;
+const MAX_RETRY_DELAY_MS = 120000;
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 function retryDelayMs(res, attempt) {
   const retryAfter = res.headers.get("retry-after");
   if (retryAfter) {
     const seconds = Number(retryAfter);
-    if (Number.isFinite(seconds) && seconds >= 0) return seconds * 1000;
+    if (Number.isFinite(seconds) && seconds > 0) return seconds * 1000;
     const until = Date.parse(retryAfter) - Date.now();
     if (Number.isFinite(until) && until > 0) return until;
   }
-  const base = res.status === 429 ? 5000 : 2000;
-  return base * 2 ** (attempt - 1) + Math.random() * 1000;
+  const base = res.status === 429 ? 15000 : 2000;
+  return Math.min(base * 2 ** (attempt - 1), MAX_RETRY_DELAY_MS) + Math.random() * 1000;
 }
 
 async function getJson(url, label) {
@@ -72,7 +73,9 @@ async function getJson(url, label) {
       continue;
     }
     if ((res.status >= 500 || res.status === 429) && attempt < RETRIES) {
-      await sleep(retryDelayMs(res, attempt));
+      const delayMs = retryDelayMs(res, attempt);
+      console.warn(`${label} returned ${res.status}; retry ${attempt + 1}/${RETRIES} in ${Math.ceil(delayMs / 1000)}s`);
+      await sleep(delayMs);
       continue;
     }
     if (!res.ok) throw new Error(`${label} failed: ${res.status} ${res.statusText}`);
