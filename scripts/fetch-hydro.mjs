@@ -81,20 +81,21 @@ const addDays = (d, n) => new Date(d.getTime() + n * 86400000);
 // and the parse, staleness and hydrological-day guards below exist precisely to
 // stop a plausible-but-wrong file being published. Do not widen this into a
 // general retry wrapper.
-const RETRIES = 5;
+const RETRIES = 8;
 const KIWIS_PAUSE_MS = 1000;
+const MAX_RETRY_DELAY_MS = 120000;
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 function retryDelayMs(res, attempt) {
   const retryAfter = res.headers.get("retry-after");
   if (retryAfter) {
     const seconds = Number(retryAfter);
-    if (Number.isFinite(seconds) && seconds >= 0) return seconds * 1000;
+    if (Number.isFinite(seconds) && seconds > 0) return seconds * 1000;
     const until = Date.parse(retryAfter) - Date.now();
     if (Number.isFinite(until) && until > 0) return until;
   }
-  const base = res.status === 429 ? 5000 : 2000;
-  return base * 2 ** (attempt - 1) + Math.random() * 1000;
+  const base = res.status === 429 ? 15000 : 2000;
+  return Math.min(base * 2 ** (attempt - 1), MAX_RETRY_DELAY_MS) + Math.random() * 1000;
 }
 
 async function fetchWithRetry(url, label) {
@@ -108,7 +109,9 @@ async function fetchWithRetry(url, label) {
       continue;
     }
     if ((res.status >= 500 || res.status === 429) && attempt < RETRIES) {
-      await sleep(retryDelayMs(res, attempt));
+      const delayMs = retryDelayMs(res, attempt);
+      console.warn(`${label} returned ${res.status}; retry ${attempt + 1}/${RETRIES} in ${Math.ceil(delayMs / 1000)}s`);
+      await sleep(delayMs);
       continue;
     }
     if (!res.ok) throw new Error(`${label} failed: ${res.status} ${res.statusText}`);
