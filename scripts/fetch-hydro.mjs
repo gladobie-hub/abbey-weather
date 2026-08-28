@@ -72,15 +72,30 @@ const addDays = (d, n) => new Date(d.getTime() + n * 86400000);
 
 // SEPA's demonstrator service returns the occasional 500 — one did on 2026-07-28,
 // costing a whole run at a point where GitHub was already dropping most of them.
-// A 429 cost another run on 2026-07-29: nine ts_ids fire concurrently every tick
-// (scripts/fetch-hydro.mjs's Promise.all below), enough to occasionally trip
-// SEPA's rate limiter. Retry only what is genuinely transient: 5xx, 429, and
+// A 429 cost another run on 2026-07-29, and repeated bursts contributed to six
+// failures on 25-28 Aug: nine ts_ids used to fire concurrently every tick, enough
+// to trip SEPA's rate limiter. KiWIS calls are now serialised and spaced below. Retry only
+// what is genuinely transient: 5xx, 429, and
 // network/DNS errors. Everything else still fails on the first attempt, and that
 // is the point — a 4xx other than 429 means a bad ts_id (our bug, not a blip),
 // and the parse, staleness and hydrological-day guards below exist precisely to
 // stop a plausible-but-wrong file being published. Do not widen this into a
 // general retry wrapper.
-const RETRIES = 3;
+const RETRIES = 5;
+const KIWIS_PAUSE_MS = 1000;
+const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+function retryDelayMs(res, attempt) {
+  const retryAfter = res.headers.get("retry-after");
+  if (retryAfter) {
+    const seconds = Number(retryAfter);
+    if (Number.isFinite(seconds) && seconds >= 0) return seconds * 1000;
+    const until = Date.parse(retryAfter) - Date.now();
+    if (Number.isFinite(until) && until > 0) return until;
+  }
+  const base = res.status === 429 ? 5000 : 2000;
+  return base * 2 ** (attempt - 1) + Math.random() * 1000;
+}
 
 async function fetchWithRetry(url, label) {
   for (let attempt = 1; ; attempt++) {
@@ -89,13 +104,11 @@ async function fetchWithRetry(url, label) {
       res = await fetch(url);
     } catch (e) {
       if (attempt >= RETRIES) throw new Error(`${label} failed: ${e.message}`);
-      await new Promise((r) => setTimeout(r, attempt * 2000));
+      await sleep(2000 * 2 ** (attempt - 1) + Math.random() * 1000);
       continue;
     }
     if ((res.status >= 500 || res.status === 429) && attempt < RETRIES) {
-      const retryAfter = Number(res.headers.get("retry-after"));
-      const delayMs = retryAfter > 0 ? retryAfter * 1000 : attempt * 2000;
-      await new Promise((r) => setTimeout(r, delayMs));
+      await sleep(retryDelayMs(res, attempt));
       continue;
     }
     if (!res.ok) throw new Error(`${label} failed: ${res.status} ${res.statusText}`);
@@ -103,7 +116,7 @@ async function fetchWithRetry(url, label) {
   }
 }
 
-async function kiwis(tsId, params) {
+async function fetchKiwis(tsId, params) {
   const qs = new URLSearchParams({
     service: "kisters",
     type: "queryServices",
@@ -127,6 +140,19 @@ async function kiwis(tsId, params) {
     v: v == null ? null : Number(v),
     q: q == null ? null : Number(q),
   }));
+}
+
+// Promise.all is useful to keep the callers readable, but SEPA's demonstrator
+// endpoint does not tolerate the resulting burst. Chain every KiWIS request and
+// leave a short quiet interval after it, including after a failed request.
+let kiwisQueue = Promise.resolve();
+function kiwis(tsId, params) {
+  const request = kiwisQueue.then(() => fetchKiwis(tsId, params));
+  kiwisQueue = request.then(
+    () => sleep(KIWIS_PAUSE_MS),
+    () => sleep(KIWIS_PAUSE_MS),
+  );
+  return request;
 }
 
 const series = (tsId, from, to) => kiwis(tsId, { from, to });
