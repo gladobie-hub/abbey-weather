@@ -45,6 +45,7 @@ on:
 
 permissions:
   contents: write
+  actions: read # lets the escalation step below look up prior run conclusions
 
 # Shared with refresh.yml, which is now manual-only: both push to main, and
 # serialising them avoids racing on the same branch.
@@ -78,14 +79,61 @@ jobs:
           fi
 
       # Exits non-zero on a parse failure, a stale feed, or a hydrological-day
-      # mismatch, so GitHub emails rather than publishing a wrong-but-plausible file.
+      # mismatch — never publishes a wrong-but-plausible file. continue-on-error
+      # here is only about which step reddens the JOB (and so sends GitHub's
+      # failure email) below; it does not soften this refusal to publish.
       - name: Fetch SEPA hydrology
+        id: fetch
+        continue-on-error: true
         run: node scripts/fetch-hydro.mjs ${{ steps.scope.outputs.args }}
+
+      # SEPA's demonstrator service throttles with a 429 that usually clears
+      # within an hour (see scripts/fetch-hydro.mjs's own retry/backoff) — see
+      # the run on 28 Aug 2026 that retried 8x over ~10 minutes and still lost.
+      # Emailing on every one of those trained everyone to ignore the alert. So
+      # this run stays green and quiet on an isolated failure, and only reddens
+      # (emailing) once the fetch has failed FAILURE_THRESHOLD runs in a row —
+      # which means SEPA is actually down, not just slow this hour.
+      - name: Escalate only on sustained SEPA failure
+        if: steps.fetch.outcome == 'failure'
+        uses: actions/github-script@v7
+        env:
+          FAILURE_THRESHOLD: "3"
+        with:
+          script: |
+            const threshold = Number(process.env.FAILURE_THRESHOLD);
+            const { data } = await github.rest.actions.listWorkflowRuns({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              workflow_id: "hydro.yml",
+              per_page: 20,
+            });
+            const priorRuns = data.workflow_runs
+              .filter((run) => run.id !== context.runId && run.status === "completed")
+              .sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+
+            let consecutiveFailures = 1; // this run
+            for (const run of priorRuns) {
+              if (run.conclusion !== "failure") break;
+              consecutiveFailures += 1;
+            }
+
+            core.info(`${consecutiveFailures} consecutive failed run(s) including this one (threshold ${threshold}).`);
+            if (consecutiveFailures >= threshold) {
+              core.setFailed(
+                `SEPA fetch has failed ${consecutiveFailures} runs in a row — this is no longer a single throttled request.`
+              );
+            } else {
+              core.warning(
+                `SEPA fetch failed (${consecutiveFailures}/${threshold} consecutive) — not escalating yet, likely transient SEPA throttling.`
+              );
+            }
 
       # Commit the hydrology data before touching the dashboard, so that if
       # Open-Meteo is down the data/ update is already banked rather than lost
-      # with the run.
+      # with the run. Skipped entirely if the fetch didn't publish.
       - name: Commit if the hydrology data changed
+        if: steps.fetch.outcome == 'success'
         run: |
           scripts/commit-and-push.sh \
             "Refresh hydrology data ($(date -u +'%Y-%m-%d %H:%M')Z)" data/
@@ -93,13 +141,16 @@ jobs:
       # Writes data/dashboard.json (what the page fetches) and the matching
       # #almanac-data fallback block in index.html. Deliberately not
       # continue-on-error: if the dashboard sources break, the run should redden
-      # and email rather than quietly leave a stale page looking current.
+      # and email rather than quietly leave a stale page looking current. Only
+      # runs once the hydrology fetch actually published something to build on.
       - name: Rebuild the dashboard
+        if: steps.fetch.outcome == 'success'
         run: node refresh-weather-dashboard.mjs index.html
 
       # Both paths, one commit — they carry the same payload and must never be
       # published out of step with each other.
       - name: Commit if the dashboard changed
+        if: steps.fetch.outcome == 'success'
         run: |
           scripts/commit-and-push.sh \
             "Refresh weather dashboard ($(date -u +'%Y-%m-%d %H:%M')Z)" \
@@ -111,5 +162,5 @@ jobs:
       # Runs after the commit so a boundary change reddens the job and emails
       # without also costing that run's data update.
       - name: Audit the hydrological-day boundary
-        if: steps.scope.outputs.args == '--daily'
+        if: steps.scope.outputs.args == '--daily' && steps.fetch.outcome == 'success'
         run: node scripts/fetch-hydro.mjs --verify-history 365
