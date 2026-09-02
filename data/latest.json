@@ -6,37 +6,37 @@
     "lat": 55.853,
     "lon": -2.387
   },
-  "fetchedAt": "2026-09-02T04:33:21.251Z",
-  "lastReadingAt": "2026-09-02T04:15:00.000Z",
-  "stalenessMinutes": 18,
+  "fetchedAt": "2026-09-02T09:36:34.469Z",
+  "lastReadingAt": "2026-09-02T09:15:00.000Z",
+  "stalenessMinutes": 22,
   "rainfall": {
     "units": "mm",
     "sinceMidnightLocal": {
-      "mm": 0.8,
+      "mm": 2,
       "dayDefinition": "midnight Europe/London (BST in summer)",
       "from": "2026-09-01T23:00:00.000Z"
     },
     "sinceHydroDay0900": {
-      "mm": 1.6,
+      "mm": 0,
       "dayDefinition": "09:00 UTC hydrological day — 10:00 local under BST",
-      "from": "2026-09-01T09:00:00.000Z"
+      "from": "2026-09-02T09:00:00.000Z"
     },
     "last24h": {
-      "mm": 1.6
+      "mm": 2.8
     },
     "last36h": {
-      "mm": 1.6,
+      "mm": 2.8,
       "source": "SEPA Hour.36HourTotal"
     },
     "last7d": {
-      "mm": 14.4
+      "mm": 15.6
     },
     "monthToDate": {
-      "mm": 1.6,
+      "mm": 2.8,
       "throughDayOfMonth": 2,
       "normalToDate": {
         "mm": 5.6,
-        "percentOfNormal": 29,
+        "percentOfNormal": 50,
         "rangeMm": [
           0,
           50
@@ -53,13 +53,13 @@
   "riverLevel": {
     "units": "m",
     "m": 0.29,
-    "at": "2026-09-02T04:15:00.000Z",
+    "at": "2026-09-02T09:15:00.000Z",
     "trend": "steady",
     "lastClosedDay": {
-      "date": "2026-08-31",
-      "min": 0.287,
+      "date": "2026-09-01",
+      "min": 0.286,
       "mean": 0.29,
-      "max": 0.299
+      "max": 0.293
     }
   },
   "quality": {
@@ -74,7 +74,7 @@
     "window": "09:00Z to 09:00Z, fixed year-round",
     "daysChecked": 9,
     "daysAgreed": 9,
-    "discriminatingDays": 0,
+    "discriminatingDays": 1,
     "localTimeHypothesisMatches": 0,
     "disagreements": [],
     "note": "discriminatingDays counts days where a 09:00-local boundary would give a different total. Only those days actually test the assumption; localTimeHypothesisMatches should stay 0"
