@@ -6,15 +6,15 @@
     "lat": 55.853,
     "lon": -2.387
   },
-  "fetchedAt": "2026-09-04T21:27:56.040Z",
-  "lastReadingAt": "2026-09-04T21:15:00.000Z",
-  "stalenessMinutes": 13,
+  "fetchedAt": "2026-09-05T00:04:26.875Z",
+  "lastReadingAt": "2026-09-04T23:45:00.000Z",
+  "stalenessMinutes": 19,
   "rainfall": {
     "units": "mm",
     "sinceMidnightLocal": {
-      "mm": 3,
+      "mm": 0,
       "dayDefinition": "midnight Europe/London (BST in summer)",
-      "from": "2026-09-03T23:00:00.000Z"
+      "from": "2026-09-04T23:00:00.000Z"
     },
     "sinceHydroDay0900": {
       "mm": 0.6,
@@ -33,10 +33,10 @@
     },
     "monthToDate": {
       "mm": 10.2,
-      "throughDayOfMonth": 4,
+      "throughDayOfMonth": 5,
       "normalToDate": {
-        "mm": 12.2,
-        "percentOfNormal": 84,
+        "mm": 15.3,
+        "percentOfNormal": 67,
         "rangeMm": [
           0,
           113.2
@@ -52,8 +52,8 @@
   },
   "riverLevel": {
     "units": "m",
-    "m": 0.284,
-    "at": "2026-09-04T21:00:00.000Z",
+    "m": 0.285,
+    "at": "2026-09-04T23:45:00.000Z",
     "trend": "steady",
     "lastClosedDay": {
       "date": "2026-09-03",
