@@ -3,7 +3,7 @@
     "id": 36870,
     "name": "Abbey St Bathans"
   },
-  "fetchedAt": "2026-09-04T13:45:50.107Z",
+  "fetchedAt": "2026-09-05T13:01:29.239Z",
   "units": "mm",
   "note": "computed from the daily record; SEPA's Month.Total and LongTermValue Min/Max series are empty at this station. 'complete' months only are used for the long-term figures",
   "months": [
@@ -1829,8 +1829,8 @@
     },
     {
       "month": "2026-09",
-      "mm": 9.6,
-      "daysWithData": 3,
+      "mm": 10.2,
+      "daysWithData": 4,
       "gaps": 0,
       "complete": false
     }
