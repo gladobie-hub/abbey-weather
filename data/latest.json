@@ -6,37 +6,37 @@
     "lat": 55.853,
     "lon": -2.387
   },
-  "fetchedAt": "2026-09-12T05:46:12.423Z",
-  "lastReadingAt": "2026-09-12T05:30:00.000Z",
-  "stalenessMinutes": 16,
+  "fetchedAt": "2026-09-12T10:44:16.963Z",
+  "lastReadingAt": "2026-09-12T10:30:00.000Z",
+  "stalenessMinutes": 14,
   "rainfall": {
     "units": "mm",
     "sinceMidnightLocal": {
-      "mm": 1,
+      "mm": 1.2,
       "dayDefinition": "midnight Europe/London (BST in summer)",
       "from": "2026-09-11T23:00:00.000Z"
     },
     "sinceHydroDay0900": {
-      "mm": 1,
+      "mm": 0,
       "dayDefinition": "09:00 UTC hydrological day — 10:00 local under BST",
-      "from": "2026-09-11T09:00:00.000Z"
+      "from": "2026-09-12T09:00:00.000Z"
     },
     "last24h": {
-      "mm": 1
+      "mm": 1.2
     },
     "last36h": {
-      "mm": 1.8,
+      "mm": 1.2,
       "source": "SEPA Hour.36HourTotal"
     },
     "last7d": {
-      "mm": 8.4
+      "mm": 8.6
     },
     "monthToDate": {
-      "mm": 18.6,
+      "mm": 18.8,
       "throughDayOfMonth": 12,
       "normalToDate": {
         "mm": 33,
-        "percentOfNormal": 56,
+        "percentOfNormal": 57,
         "rangeMm": [
           0.2,
           118.4
@@ -52,13 +52,13 @@
   },
   "riverLevel": {
     "units": "m",
-    "m": 0.279,
-    "at": "2026-09-12T05:30:00.000Z",
-    "trend": "steady",
+    "m": 0.281,
+    "at": "2026-09-12T10:30:00.000Z",
+    "trend": "rising",
     "lastClosedDay": {
-      "date": "2026-09-10",
-      "min": 0.278,
-      "mean": 0.282,
+      "date": "2026-09-11",
+      "min": 0.276,
+      "mean": 0.28,
       "max": 0.284
     }
   },
@@ -74,7 +74,7 @@
     "window": "09:00Z to 09:00Z, fixed year-round",
     "daysChecked": 9,
     "daysAgreed": 9,
-    "discriminatingDays": 1,
+    "discriminatingDays": 0,
     "localTimeHypothesisMatches": 0,
     "disagreements": [],
     "note": "discriminatingDays counts days where a 09:00-local boundary would give a different total. Only those days actually test the assumption; localTimeHypothesisMatches should stay 0"
