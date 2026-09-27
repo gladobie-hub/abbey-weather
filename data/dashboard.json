@@ -1,23 +1,16 @@
 {
   "location": "Abbey St Bathans, Berwickshire",
-  "updated": "2026-09-26",
+  "updated": "2026-09-27",
   "source": "SEPA on-farm gauge (station 36870) &middot; Open-Meteo",
   "weekly": {
-    "weekEnding": "2026-09-24",
-    "totalRain": 21,
-    "avgMin": 9.7,
-    "avgMax": 16.9,
+    "weekEnding": "2026-09-25",
+    "totalRain": 20.4,
+    "avgMin": 9.4,
+    "avgMax": 16.8,
     "maxWind": 22,
     "days": 7
   },
   "days": [
-    {
-      "date": "2026-09-11",
-      "rain": 1.2,
-      "tmin": 8.7,
-      "tmax": 16.1,
-      "wind": 17
-    },
     {
       "date": "2026-09-12",
       "rain": 0,
@@ -108,26 +101,26 @@
       "tmin": 6,
       "tmax": 15.1,
       "wind": 18
+    },
+    {
+      "date": "2026-09-25",
+      "rain": 0,
+      "tmin": 8.8,
+      "tmax": 15,
+      "wind": 17
     }
   ],
   "lastYear": {
     "label": "2025",
     "weekly": {
-      "weekEnding": "2025-09-24",
-      "totalRain": 7.4,
-      "avgMin": 6.9,
-      "avgMax": 13.9,
-      "maxWind": 22,
+      "weekEnding": "2025-09-25",
+      "totalRain": 6.2,
+      "avgMin": 6.3,
+      "avgMax": 13.6,
+      "maxWind": 19,
       "days": 7
     },
     "days": [
-      {
-        "date": "2025-09-11",
-        "rain": 1.6,
-        "tmin": 8.3,
-        "tmax": 13.9,
-        "wind": 18
-      },
       {
         "date": "2025-09-12",
         "rain": 5.6,
@@ -218,6 +211,13 @@
         "tmin": 5.6,
         "tmax": 13.7,
         "wind": 9
+      },
+      {
+        "date": "2025-09-25",
+        "rain": 0,
+        "tmin": 6,
+        "tmax": 14.6,
+        "wind": 10
       }
     ]
   }
