@@ -6,9 +6,9 @@
     "lat": 55.853,
     "lon": -2.387
   },
-  "fetchedAt": "2026-10-05T09:02:14.936Z",
-  "lastReadingAt": "2026-10-05T08:45:00.000Z",
-  "stalenessMinutes": 17,
+  "fetchedAt": "2026-10-05T18:26:13.183Z",
+  "lastReadingAt": "2026-10-05T18:15:00.000Z",
+  "stalenessMinutes": 11,
   "rainfall": {
     "units": "mm",
     "sinceMidnightLocal": {
@@ -52,14 +52,14 @@
   },
   "riverLevel": {
     "units": "m",
-    "m": 0.292,
-    "at": "2026-10-05T08:45:00.000Z",
+    "m": 0.29,
+    "at": "2026-10-05T18:15:00.000Z",
     "trend": "steady",
     "lastClosedDay": {
-      "date": "2026-10-03",
+      "date": "2026-10-04",
       "min": 0.289,
-      "mean": 0.29,
-      "max": 0.292
+      "mean": 0.291,
+      "max": 0.293
     }
   },
   "quality": {
@@ -72,8 +72,8 @@
     "checked": true,
     "agrees": true,
     "window": "09:00Z to 09:00Z, fixed year-round",
-    "daysChecked": 8,
-    "daysAgreed": 8,
+    "daysChecked": 9,
+    "daysAgreed": 9,
     "discriminatingDays": 0,
     "localTimeHypothesisMatches": 0,
     "disagreements": [],
