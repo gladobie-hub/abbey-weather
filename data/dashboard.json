@@ -3,21 +3,14 @@
   "updated": "2026-10-09",
   "source": "SEPA on-farm gauge (station 36870) &middot; Open-Meteo",
   "weekly": {
-    "weekEnding": "2026-10-07",
-    "totalRain": 0.6,
-    "avgMin": 7.7,
-    "avgMax": 15.1,
+    "weekEnding": "2026-10-08",
+    "totalRain": 8.8,
+    "avgMin": 7.3,
+    "avgMax": 14.5,
     "maxWind": 20,
     "days": 7
   },
   "days": [
-    {
-      "date": "2026-09-24",
-      "rain": 1,
-      "tmin": 6,
-      "tmax": 15.1,
-      "wind": 18
-    },
     {
       "date": "2026-09-25",
       "rain": 0,
@@ -108,26 +101,26 @@
       "tmin": 4.1,
       "tmax": 12.3,
       "wind": 13
+    },
+    {
+      "date": "2026-10-08",
+      "rain": 8.2,
+      "tmin": 4.3,
+      "tmax": 11.1,
+      "wind": 11
     }
   ],
   "lastYear": {
     "label": "2025",
     "weekly": {
-      "weekEnding": "2025-10-07",
+      "weekEnding": "2025-10-08",
       "totalRain": 21.2,
-      "avgMin": 9.5,
-      "avgMax": 14.7,
+      "avgMin": 8.9,
+      "avgMax": 14.4,
       "maxWind": 35,
       "days": 7
     },
     "days": [
-      {
-        "date": "2025-09-24",
-        "rain": 0,
-        "tmin": 5.6,
-        "tmax": 13.7,
-        "wind": 9
-      },
       {
         "date": "2025-09-25",
         "rain": 0,
@@ -218,6 +211,13 @@
         "tmin": 7.7,
         "tmax": 14,
         "wind": 21
+      },
+      {
+        "date": "2025-10-08",
+        "rain": 0.2,
+        "tmin": 7.1,
+        "tmax": 13.1,
+        "wind": 20
       }
     ]
   }
