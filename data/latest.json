@@ -6,37 +6,37 @@
     "lat": 55.853,
     "lon": -2.387
   },
-  "fetchedAt": "2026-10-21T07:37:40.901Z",
-  "lastReadingAt": "2026-10-21T07:30:00.000Z",
-  "stalenessMinutes": 8,
+  "fetchedAt": "2026-10-21T13:46:37.807Z",
+  "lastReadingAt": "2026-10-21T13:30:00.000Z",
+  "stalenessMinutes": 17,
   "rainfall": {
     "units": "mm",
     "sinceMidnightLocal": {
-      "mm": 8.8,
+      "mm": 9.4,
       "dayDefinition": "midnight Europe/London (BST in summer)",
       "from": "2026-10-20T23:00:00.000Z"
     },
     "sinceHydroDay0900": {
-      "mm": 9.4,
+      "mm": 0,
       "dayDefinition": "09:00 UTC hydrological day — 10:00 local under BST",
-      "from": "2026-10-20T09:00:00.000Z"
+      "from": "2026-10-21T09:00:00.000Z"
     },
     "last24h": {
-      "mm": 9.6
+      "mm": 10
     },
     "last36h": {
-      "mm": 9.8,
+      "mm": 10.2,
       "source": "SEPA Hour.36HourTotal"
     },
     "last7d": {
-      "mm": 13.2
+      "mm": 13.8
     },
     "monthToDate": {
-      "mm": 26.6,
+      "mm": 27.2,
       "throughDayOfMonth": 21,
       "normalToDate": {
         "mm": 71.4,
-        "percentOfNormal": 37,
+        "percentOfNormal": 38,
         "rangeMm": [
           17.4,
           145.8
@@ -52,14 +52,14 @@
   },
   "riverLevel": {
     "units": "m",
-    "m": 0.304,
-    "at": "2026-10-21T07:30:00.000Z",
-    "trend": "rising",
+    "m": 0.31,
+    "at": "2026-10-21T13:30:00.000Z",
+    "trend": "steady",
     "lastClosedDay": {
-      "date": "2026-10-19",
-      "min": 0.285,
-      "mean": 0.288,
-      "max": 0.292
+      "date": "2026-10-20",
+      "min": 0.288,
+      "mean": 0.294,
+      "max": 0.306
     }
   },
   "quality": {
@@ -74,7 +74,7 @@
     "window": "09:00Z to 09:00Z, fixed year-round",
     "daysChecked": 9,
     "daysAgreed": 9,
-    "discriminatingDays": 0,
+    "discriminatingDays": 1,
     "localTimeHypothesisMatches": 0,
     "disagreements": [],
     "note": "discriminatingDays counts days where a 09:00-local boundary would give a different total. Only those days actually test the assumption; localTimeHypothesisMatches should stay 0"
