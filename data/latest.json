@@ -6,37 +6,37 @@
     "lat": 55.853,
     "lon": -2.387
   },
-  "fetchedAt": "2026-10-23T07:30:04.974Z",
-  "lastReadingAt": "2026-10-23T07:15:00.000Z",
-  "stalenessMinutes": 15,
+  "fetchedAt": "2026-10-23T13:24:55.033Z",
+  "lastReadingAt": "2026-10-23T13:15:00.000Z",
+  "stalenessMinutes": 10,
   "rainfall": {
     "units": "mm",
     "sinceMidnightLocal": {
-      "mm": 0,
+      "mm": 16.2,
       "dayDefinition": "midnight Europe/London (BST in summer)",
       "from": "2026-10-22T23:00:00.000Z"
     },
     "sinceHydroDay0900": {
-      "mm": 0,
+      "mm": 14.2,
       "dayDefinition": "09:00 UTC hydrological day — 10:00 local under BST",
-      "from": "2026-10-22T09:00:00.000Z"
+      "from": "2026-10-23T09:00:00.000Z"
     },
     "last24h": {
-      "mm": 0
+      "mm": 16.2
     },
     "last36h": {
-      "mm": 1.8,
+      "mm": 15.2,
       "source": "SEPA Hour.36HourTotal"
     },
     "last7d": {
-      "mm": 14
+      "mm": 30.2
     },
     "monthToDate": {
-      "mm": 29,
+      "mm": 45.2,
       "throughDayOfMonth": 23,
       "normalToDate": {
         "mm": 76.4,
-        "percentOfNormal": 38,
+        "percentOfNormal": 59,
         "rangeMm": [
           17.4,
           146
@@ -52,14 +52,14 @@
   },
   "riverLevel": {
     "units": "m",
-    "m": 0.304,
-    "at": "2026-10-23T07:15:00.000Z",
-    "trend": "steady",
+    "m": 0.315,
+    "at": "2026-10-23T13:15:00.000Z",
+    "trend": "rising",
     "lastClosedDay": {
-      "date": "2026-10-21",
-      "min": 0.306,
-      "mean": 0.325,
-      "max": 0.342
+      "date": "2026-10-22",
+      "min": 0.303,
+      "mean": 0.31,
+      "max": 0.317
     }
   },
   "quality": {
@@ -74,7 +74,7 @@
     "window": "09:00Z to 09:00Z, fixed year-round",
     "daysChecked": 9,
     "daysAgreed": 9,
-    "discriminatingDays": 2,
+    "discriminatingDays": 3,
     "localTimeHypothesisMatches": 0,
     "disagreements": [],
     "note": "discriminatingDays counts days where a 09:00-local boundary would give a different total. Only those days actually test the assumption; localTimeHypothesisMatches should stay 0"
