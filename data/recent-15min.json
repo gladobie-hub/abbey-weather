@@ -3,12 +3,12 @@
     "id": 36870,
     "name": "Abbey St Bathans"
   },
-  "fetchedAt": "2026-11-18T18:22:10.490Z",
+  "fetchedAt": "2026-11-18T21:55:11.049Z",
   "units": "mm",
   "startsAt": "2026-10-18T00:00:00.000Z",
-  "endsAt": "2026-11-18T18:15:00.000Z",
+  "endsAt": "2026-11-18T21:45:00.000Z",
   "intervalMinutes": 15,
-  "count": 3050,
+  "count": 3064,
   "encoding": "mm[i] covers the 15 minutes ending at startsAt + i*15min (UTC). null means no reading received, not zero rainfall",
   "mm": [
     0,
@@ -3060,6 +3060,20 @@
     0,
     0,
     0,
+    0,
+    0,
+    0,
+    0.2,
+    0.2,
+    0.2,
+    0,
+    0.2,
+    0.6,
+    0.6,
+    0,
+    0.2,
+    0,
+    0.2,
     0
   ]
 }
