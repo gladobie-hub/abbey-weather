@@ -3,19 +3,19 @@
     "id": 36870,
     "name": "Abbey St Bathans"
   },
-  "fetchedAt": "2026-11-19T18:39:04.276Z",
+  "fetchedAt": "2026-11-20T17:59:48.702Z",
   "dayDefinition": "09:00 UTC to 09:00 UTC, stamped with the START date",
   "units": "mm",
   "encoding": "mm[i] is the total for the day (firstDate + i days). Dates are consecutive with none missing. null means no reading was received — never read it as zero rainfall",
   "firstDate": "2005-01-01",
-  "lastDate": "2026-11-18",
-  "count": 7992,
+  "lastDate": "2026-11-19",
+  "count": 7993,
   "gaps": 50,
   "qualityCounts": {
     "good": 1531,
     "unknown": 2073,
     "missing": 50,
-    "unclassified": 4028,
+    "unclassified": 4029,
     "suspect": 310
   },
   "stats": {
@@ -93,7 +93,7 @@
       "2023": 1062.8,
       "2024": 910.6,
       "2025": 772.8,
-      "2026": 663
+      "2026": 665
     },
     "hydrologicalYearTotals": {
       "2004": 672.8,
@@ -118,7 +118,7 @@
       "2023": 1175.8,
       "2024": 671.4,
       "2025": 829.4,
-      "2026": 162.4
+      "2026": 164.4
     },
     "note": "hydrological year runs October–September, named for the year it starts. Years at either end of the record are partial. Dry run counts days of exactly 0.0mm; a missing reading breaks the run"
   },
@@ -8478,6 +8478,7 @@
     8.4,
     1.8,
     14.8,
-    6
+    6,
+    2
   ]
 }
